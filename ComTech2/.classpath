@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="img"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVA 11 SDK"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/controlsfx-9.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/controlsfx-samples-9.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/fxsampler-1.0.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/mysql-connector-java-5.1.39-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/fontawesomefx-glyphsbrowser-1.3.0/lib/controlsfx-8.40.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-commons-8.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-controls-8.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-emojione-2.2.7-2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-fontawesome-4.7.0-5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-glyphsbrowser-1.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-icons525-3.0.0-4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-materialdesignfont-1.7.22-4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-materialicons-2.2.0-5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-octicons-4.3.0-5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/fontawesomefx-glyphsbrowser-1.3.0/lib/fontawesomefx-weathericons-2.0.10-5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/jfoenix-9.0.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/AnimateFX-1.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/Medusa-8.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

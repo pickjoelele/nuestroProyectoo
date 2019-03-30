@@ -1,0 +1,18 @@
+Dark #2a324b 
+light #e1e5ee
+qd user log yn notification salut , bienvenido
+evit trop lignes de codes utilisant 
+============================================
+https://developer.mozilla.org/fr/docs/Web/CSS/Couleurs_CSS/S%C3%A9lecteur_de_couleurs
+3FBFBF = menu couleur bleu
+pou couleur picker
+=========
+sonje retire cantComp le client fin achte
+fel yon gen manager nn chak tienda ,li k voye 
+vendeur ale  
+//al crear un vendedor ,hay que decir cual tienda
+en caso ke no hay,no puede
+===================================================
+Microprocesador
+[]cant disponible 50
+chart mostrando que adm

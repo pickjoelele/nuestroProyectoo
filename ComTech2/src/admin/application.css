@@ -1,0 +1,57 @@
+.menu-bar{
+  -fx-background-color: #3FBFBF;
+  -fx-border-color:  black;
+ -fx-border-width: 2 ;
+ -fx-border-radius: 2;
+}
+
+.menuButton{
+    -fx-background-color: #58e892;
+     -fx-border-color:  black;
+ -fx-border-width: 2 ;
+ -fx-border-radius: 2;
+}
+.menu-bar .label {
+    -fx-font-size: 20 pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+}
+.menu{
+    -fx-min-width: 150px;
+    -fx-max-width:150px;
+
+
+}
+.pane{
+        -fx-background-color:  white; 
+
+}
+
+.menu:hover  {
+    -fx-background-color:  #2a324b; 
+    
+}
+
+/* menu item  */
+.menu-item .label {
+-fx-text-fill: white;
+-fx-font-size: 12pt; 
+/* -fx-stroke:#C8CFD7; */
+/* -fx-strok-width:.25; */
+} 
+ 
+
+.menu-item{
+   -fx-background-color:  #3FBFBF;
+   -fx-min-width: 150px;
+   -fx-text-fill: white;
+   -fx-border-color: #DDDEE2 transparent #B9C0C8 transparent;
+   -fx-border-width:5px;
+}
+
+.menu-item:focused {
+/* -fx-background: -fx-accent; */
+-fx-background-color: #2a324b;
+/* -fx-text-fill: -fx-selection-bar-text; */
+
+}
