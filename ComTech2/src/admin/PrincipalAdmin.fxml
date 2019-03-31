@@ -92,7 +92,7 @@
             <Pane layoutX="-7.0" layoutY="663.0" prefHeight="51.0" prefWidth="1380.0" style="-fx-background-color: black;" />
             <MenuBar layoutX="256.0" layoutY="54.0" prefHeight="42.0" prefWidth="852.0">
               <menus>
-                <Menu mnemonicParsing="false" text="Compras">
+                <Menu mnemonicParsing="false" text="Jhoan">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#menu_hacerCompra" text="Hacer compra" />
                         <MenuItem mnemonicParsing="false" onAction="#menu_listarCompra" text="Listar Compras" />
@@ -135,7 +135,7 @@
                         </BarChart>
                         <ImageView fitHeight="225.0" fitWidth="383.0" layoutX="301.0" layoutY="142.0" opacity="0.41" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../Downloads/tima.png" />
+                              <Image url="@../../pics/tima.png" />
                            </image>
                         </ImageView>
                      </children>
