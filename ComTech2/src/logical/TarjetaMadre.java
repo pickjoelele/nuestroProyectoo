@@ -11,8 +11,8 @@ public class TarjetaMadre extends Componente{
 		
 		this.conexiones = conexiones;
 		this.tipoDeRam = tipoDeRam;
-		this.cantMinimal = 90;
-		this.cantMax = 450;
+		Componente.cantMinimal = 90;
+		Componente.cantMax = 450;
 		this.nombre = "Tarjeta Madre";
 	}
 

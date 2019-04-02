@@ -11,8 +11,8 @@ public class Ram extends Componente {
 		this.cantMemoria = cantMemoria;
 		this.tipoRam = tipoRam;
 		this.nombre = "Ram";
-		this.cantMinimal = 80;
-		this.cantMax = 450;	}
+		Componente.cantMinimal = 80;
+		Componente.cantMax = 450;	}
 
 	public String getCantMemoria() {
 		return cantMemoria;

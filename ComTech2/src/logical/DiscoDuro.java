@@ -7,12 +7,14 @@ public class DiscoDuro extends Componente{
 	
 	public DiscoDuro(String modelo, String marca, String tipo, float precio, int cantDisponible, String serie,String Almacenamiento, String tipoConec) {
 		super(modelo, marca, tipo, precio, cantDisponible, serie);
-		this.cantMinimal = 100;
-		this.cantMax = 400;
+		Componente.cantMinimal = 100;
+		
+		Componente.cantMax = 400;
 		this.Almacenamiento = Almacenamiento;
 		this.tipoConec = tipoConec;
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	public String getAlmacenamiento() {
 		return Almacenamiento;

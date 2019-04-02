@@ -4,7 +4,6 @@ public abstract class Componente {
 
 	protected String modelo;
 	protected String marca;
-	protected String tipo;
 	protected float precio;
 	protected float precioVenta;
 	protected static int cantDisponible;
@@ -12,15 +11,14 @@ public abstract class Componente {
 	protected static int cantMax;
 	protected String serie;
 	protected String nombre;
-
+	protected String supliNombre;
 	public Componente(String modelo, String marca, String tipo, float precio, int cantDisponible, String serie) {
 		super();
 		this.modelo = modelo;
 		this.precioVenta = (float) (precio + (0.30*precio));
 		this.marca = marca;
-		this.tipo = tipo;
 		this.precio = precio;
-		this.cantDisponible += cantDisponible;
+		Componente.cantDisponible += cantDisponible;
 		this.serie = serie;
 	}
 
@@ -48,6 +46,14 @@ public abstract class Componente {
 		return marca;
 	}
 
+	public String getSupliNombre() {
+		return supliNombre;
+	}
+
+	public void setSupliNombre(String supliNombre) {
+		this.supliNombre = supliNombre;
+	}
+
 	public float getPrecioVenta() {
 		return precioVenta;
 	}
@@ -64,13 +70,7 @@ public abstract class Componente {
 		this.marca = marca;
 	}
 
-	public String getTipo() {
-		return tipo;
-	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
 
 	public String getNombre() {
 		return nombre;
@@ -89,7 +89,7 @@ public abstract class Componente {
 	}
 
 	public void setCantDisponible(int cantDisponible) {
-		this.cantDisponible = cantDisponible;
+		Componente.cantDisponible = cantDisponible;
 	}
 
 	public String getSerie() {

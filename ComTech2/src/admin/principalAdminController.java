@@ -1,7 +1,9 @@
 package admin;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXTextField;
 import Util.ComTechTools;
@@ -14,12 +16,17 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -27,6 +34,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import loadData.loadData;
 import logical.*;
+import suplidor.supliController;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -113,16 +122,43 @@ public class principalAdminController implements Initializable {
 	@FXML
 	private BorderPane paneMicroprocesador;
 	@FXML
-	private Pane panelRam;
+	private TextField comboBoxPrecio;
+	@FXML
+	private ComboBox<String> comboboxModelo;
+	@FXML
+	private ComboBox<String> comboBoxMarca;
 
 	@FXML
-	private Pane panelDiscoDuro;
+	private ComboBox<String> ComboxBoxSupli;
+	@FXML
+	private Pane paneCompraRam;
 
 	@FXML
-	private Pane panelTargetaMadre;
+	private Pane paneCompraDiscoDuro;
 
 	@FXML
-	private Pane PanelMicro;
+	private Pane paneCompraTarjetaMadre;
+
+	@FXML
+	private Pane paneCompraMicro;
+	@FXML
+	private Label lblTituloCompra;
+	@FXML
+	private ImageView addModelo;
+
+	@FXML
+	private ImageView addMarca;
+
+	@FXML
+	private ImageView addSupli;
+	@FXML
+	private TextField txtFieldModel;
+
+	@FXML
+	private TextField txtfieldMarca;
+
+	@FXML
+	private TextField txtFieldSerie;
 
 	@FXML
 	void exit(MouseEvent event) {
@@ -152,6 +188,55 @@ public class principalAdminController implements Initializable {
 
 		dialogLayout.setActions(ok, Cancel);
 		dialog.show();
+	}
+
+	@FXML
+	void addMarcaClick(MouseEvent event) {
+		addMarca.setVisible(false);
+		txtfieldMarca.setVisible(true);
+		txtfieldMarca.setOnKeyPressed((e) -> {
+			if (e.getCode() == KeyCode.ENTER) {
+				if (!txtfieldMarca.getText().isBlank()) {
+					control.getMarcaStr().add(txtfieldMarca.getText());
+					addMarca.setVisible(true);
+					txtfieldMarca.setVisible(false);
+					txtfieldMarca.setText("");
+					llenarComboBox();
+				}
+			}
+		});
+	}
+	@FXML
+    void addSupliClick(MouseEvent event) throws IOException {
+		supliController supli = new supliController();
+		supli.display();
+		llenarComboBox();
+    }
+
+	@FXML
+	void addModelClick(MouseEvent event) {
+		addModelo.setVisible(false);
+		txtFieldModel.setVisible(true);
+
+		txtFieldModel.setOnKeyPressed((e) -> {
+			if (e.getCode() == KeyCode.ENTER) {
+				if (!txtFieldModel.getText().isBlank()) {
+					control.getModeloStr().add(txtFieldModel.getText());
+					addModelo.setVisible(true);
+					txtFieldModel.setVisible(false);
+					txtFieldModel.setText("");
+					llenarComboBox();
+				}
+			}
+		});
+	}
+
+	@FXML
+	void regresarCompra(ActionEvent event) {
+		setAllPanelInvisible();
+		getComponentsStatistics();
+		hacer_compra.setVisible(true);	
+		
 	}
 
 	@FXML
@@ -197,12 +282,13 @@ public class principalAdminController implements Initializable {
 	}
 
 	public void getComponentsStatistics() {
-		paneRam.setCenter(com.GaugeMethod(Ram.getCantMinimal(), Ram.getCantDisponible(), Ram.getCantMinimal(), "Ram"));
-		paneDiscoDuro.setCenter(com.GaugeMethod(DiscoDuro.getCantMinimal(), DiscoDuro.getCantDisponible(),
+		paneRam.setCenter(
+				ComTechTools.GaugeMethod(Ram.getCantMinimal(), Ram.getCantDisponible(), Ram.getCantMinimal(), "Ram"));
+		paneDiscoDuro.setCenter(ComTechTools.GaugeMethod(DiscoDuro.getCantMinimal(), DiscoDuro.getCantDisponible(),
 				DiscoDuro.getCantMax(), "Disco Duro"));
-		paneTarjetaMadre.setCenter(com.GaugeMethod(TarjetaMadre.getCantMinimal(), TarjetaMadre.getCantDisponible(),
-				TarjetaMadre.getCantMax(), "Tarjeta Madre"));
-		paneMicroprocesador.setCenter(com.GaugeMethod(Microprocesador.getCantMinimal(),
+		paneTarjetaMadre.setCenter(ComTechTools.GaugeMethod(TarjetaMadre.getCantMinimal(),
+				TarjetaMadre.getCantDisponible(), TarjetaMadre.getCantMax(), "Tarjeta Madre"));
+		paneMicroprocesador.setCenter(ComTechTools.GaugeMethod(Microprocesador.getCantMinimal(),
 				Microprocesador.getCantDisponible(), Microprocesador.getCantMax(), "Microprocesador"));
 	}
 
@@ -246,10 +332,26 @@ public class principalAdminController implements Initializable {
 	void color_mouse_Clicked(MouseEvent event) {
 		Node node = (Node) event.getSource();
 		node.setStyle("-fx-background-color : #2a324b");
-		if (node.getId().equalsIgnoreCase(paneRam.getId()))
-		{
+		if (node.getId().equalsIgnoreCase(paneRam.getId())) {
 			setAllPanelInvisible();
 			compraComponentes.setVisible(true);
+			lblTituloCompra.setText("Ingresar Ram");
+			paneCompraRam.setVisible(true);
+		} else if (node.getId().equalsIgnoreCase(paneDiscoDuro.getId())) {
+			setAllPanelInvisible();
+			compraComponentes.setVisible(true);
+			lblTituloCompra.setText("Ingresar Disco Duro");
+			paneCompraDiscoDuro.setVisible(true);
+		} else if (node.getId().equalsIgnoreCase(paneTarjetaMadre.getId())) {
+			setAllPanelInvisible();
+			compraComponentes.setVisible(true);
+			lblTituloCompra.setText("Ingresar Tarjeta Madre");
+			paneCompraTarjetaMadre.setVisible(true);
+		} else if (node.getId().equalsIgnoreCase(paneMicroprocesador.getId())) {
+			setAllPanelInvisible();
+			compraComponentes.setVisible(true);
+			lblTituloCompra.setText("Ingresar Microprocesador");
+			paneCompraMicro.setVisible(true);
 		}
 
 	}
@@ -277,6 +379,10 @@ public class principalAdminController implements Initializable {
 		ingresa_vendedor.setVisible(false);
 		ingresa_cliente.setVisible(false);
 		compraComponentes.setVisible(false);
+		paneCompraDiscoDuro.setVisible(false);
+		paneCompraMicro.setVisible(false);
+		paneCompraRam.setVisible(false);
+		paneCompraTarjetaMadre.setVisible(false);
 
 	}
 
@@ -286,7 +392,6 @@ public class principalAdminController implements Initializable {
 		column_vendedor_apellido.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
 		column_vendedor_fechaEntrada.setCellValueFactory(new PropertyValueFactory<>("fechaEntrada"));
 		column_vendedor_cantVentas.setCellValueFactory(new PropertyValueFactory<>("cantVentas"));
-
 		table_Vendedor.setItems(getVendedores());
 	}
 
@@ -303,11 +408,38 @@ public class principalAdminController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		lbl_Actual_user.setText(control.getActualUser().getApellido());
+		lbl_Actual_user.setText(Controladora.getActualUser().getApellido());
 		setAllPanelInvisible();
 		dashboard.setVisible(true);
 		getComponentsStatistics();
+		llenarComboBox();
 
+	}
+
+	private void llenarComboBox() {
+		int com = comboboxModelo.getSelectionModel().getSelectedIndex();
+		comboboxModelo.getItems().setAll(control.getModeloStr());
+		comboboxModelo.getSelectionModel().clearAndSelect(com);
+		
+		int marca = comboBoxMarca.getSelectionModel().getSelectedIndex();
+		comboBoxMarca.getItems().setAll(control.getMarcaStr());
+		comboBoxMarca.getSelectionModel().clearAndSelect(marca);
+		
+		// add combobox para suplidores
+		String[] listSupli = getListSupli();
+		int supli = ComboxBoxSupli.getSelectionModel().getSelectedIndex();
+		ComboxBoxSupli.getItems().setAll(listSupli);
+		ComboxBoxSupli.getSelectionModel().clearAndSelect(supli);
+
+	}
+
+	public String[] getListSupli() {
+		int cantSupli = control.getTienda().getSuplidores().size();
+		String[] listsSupli = new String[cantSupli];
+		for (int x = 0; x < cantSupli; x++) {
+			listsSupli[x] = control.getTienda().getSuplidores().get(x).getNombre();
+		}
+		return listsSupli;
 	}
 
 }

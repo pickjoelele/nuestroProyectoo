@@ -7,27 +7,40 @@ public class Controladora {
 	private static ArrayList<Admin> administradores;
 	private static Person person = null;
 	private Tienda tienda;
-
+	private ArrayList<String> modeloStr;
+	private ArrayList<String> marcaStr;
+	
 	public Controladora() {
 		super();
 		Controladora.administradores = new ArrayList<Admin>();
 		Tienda tienda = new Tienda("Villa Olga", "Santiago");
 		this.setTienda(tienda);
-		DiscoDuro disco1 = new DiscoDuro("modelo", "marca", "tipo", 0, 0, "serie", "13", "dkd");
-		Ram  ram = new Ram("modelo", "marca", "tipo", 0, 0, "serie", "13", "dkd");
-		TarjetaMadre tj = new TarjetaMadre("modelo", "marca", "tipo", 0, 0, "serie", "13", "dkd");
-		Microprocesador micro = new Microprocesador("modelo", "marca", "tipo", 0, 0, "serie", "13");
+		new DiscoDuro("modelo", "marca", "tipo", 0, 0, "serie", "13", "dkd");
+		new Ram("modelo", "marca", "tipo", 0, 0, "serie", "13", "dkd");
+		new TarjetaMadre("modelo", "marca", "tipo", 0, 0, "serie", "13", "dkd");
+		new Microprocesador("modelo", "marca", "tipo", 0, 0, "serie", "13");
+		
 		Admin LevensonLaguerre = new Admin("Levenson", "Laguerre", "admin", "loteria,calle 3", "admin", "01/01/1997");
 		Admin Evelina = new Admin("Evelina", "Villa", "admin", "loteria,calle 3", "eve", "01/01/1997");
 		Admin Jhoan = new Admin("Jhoan", "Collado", "admin", "loteria,calle 3", "1234", "01/01/1997");
 		administradores.add(Jhoan);
 		administradores.add(Evelina);
 		administradores.add(LevensonLaguerre);
+		this.modeloStr = new ArrayList<String>();
+		this.marcaStr  = new ArrayList<String>();
 
 	}
 
 	public static Person getActualUser() {
 		return person;
+	}
+
+	public ArrayList<String> getModeloStr() {
+		return modeloStr;
+	}
+
+	public ArrayList<String> getMarcaStr() {
+		return marcaStr;
 	}
 
 	public static void setActualUser(Person person) {
@@ -38,7 +51,7 @@ public class Controladora {
 
 		for (Admin adm : administradores) {
 			if (adm.getID().equals(usuario) && adm.getContrasena().equals(contrasena)) {
-				this.person = adm;
+				Controladora.person = adm;
 				return adm;
 			}
 		}
@@ -68,5 +81,6 @@ public class Controladora {
 	public void setTienda(Tienda tienda) {
 		this.tienda = tienda;
 	}
+	
 
 }
