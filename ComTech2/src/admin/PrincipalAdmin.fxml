@@ -28,6 +28,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <StackPane fx:id="stackpane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.principalAdminController">
@@ -366,7 +367,7 @@
                   <Image url="@../../pics/Users-Administrator-icon.png" />
                </image>
             </ImageView>
-            <TitledPane fx:id="compraComponentes" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Compra" visible="false">
+            <TitledPane fx:id="compraComponentes" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Compra">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -377,7 +378,7 @@
                                     <ComboBox fx:id="ComboxBoxSupli" layoutX="40.0" layoutY="44.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
                                     <ImageView fx:id="addSupli" fitHeight="30.0" fitWidth="45.0" layoutX="286.0" layoutY="42.0" onMouseClicked="#addSupliClick" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../eclipse-workspace/ComTech/pics/add-icon.png" />
+                                          <Image url="@../../pics/add-icon.png" />
                                        </image>
                                     </ImageView>
                                     <Label layoutX="14.0" layoutY="14.0" prefHeight="23.0" prefWidth="207.0" text="Suplidor" textFill="#2a324b">
@@ -434,7 +435,7 @@
                                     <Label layoutX="14.0" layoutY="108.0" prefHeight="23.0" prefWidth="207.0" text="Almacenamiento" textFill="#2a324b" />
                                  </children>
                               </Pane>
-                              <Pane fx:id="paneCompraTarjetaMadre" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;">
+                              <Pane fx:id="paneCompraTarjetaMadre" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;" visible="false">
                                  <children>
                                     <Label layoutX="14.0" layoutY="48.0" prefHeight="23.0" prefWidth="149.0" text="Tipo de Ram" textFill="#2a324b" />
                                     <ComboBox fx:id="comboTarjetaTipoRam" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
@@ -442,12 +443,12 @@
                                     <ComboBox fx:id="comboTarjetaConexiones" layoutX="44.0" layoutY="130.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
                                     <ImageView fx:id="addModelo1" fitHeight="30.0" fitWidth="45.0" layoutX="289.0" layoutY="69.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../eclipse-workspace/ComTech/pics/add-icon.png" />
+                                          <Image url="@../../pics/add-icon.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fx:id="addModelo11" fitHeight="30.0" fitWidth="45.0" layoutX="289.0" layoutY="128.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../eclipse-workspace/ComTech/pics/add-icon.png" />
+                                          <Image url="@../../pics/add-icon.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -470,12 +471,12 @@
                               </JFXButton>
                               <ImageView fx:id="addModelo" fitHeight="30.0" fitWidth="45.0" layoutX="327.0" layoutY="111.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../eclipse-workspace/ComTech/pics/add-icon.png" />
+                                    <Image url="@../../pics/add-icon.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="addMarca" fitHeight="30.0" fitWidth="45.0" layoutX="327.0" layoutY="159.0" onMouseClicked="#addMarcaClick" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../eclipse-workspace/ComTech/pics/add-icon.png" />
+                                    <Image url="@../../pics/add-icon.png" />
                                  </image>
                               </ImageView>
                               <TextField fx:id="txtFieldModel" layoutX="327.0" layoutY="113.0" prefHeight="25.0" prefWidth="88.0" promptText="modelo" visible="false" />
@@ -506,16 +507,22 @@
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
             </JFXTextArea>
-            <TitledPane fx:id="listar_venta1" animated="false" layoutX="269.0" layoutY="110.0" prefHeight="548.0" prefWidth="856.0" text="Kit" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="215.0" AnchorPane.topAnchor="110.0">
+            <TitledPane fx:id="listar_venta1" animated="false" layoutX="269.0" layoutY="110.0" prefHeight="548.0" prefWidth="856.0" text="Kit" visible="false" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="215.0" AnchorPane.topAnchor="110.0">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="1142.0">
                      <children>
-                        <Label layoutX="385.0" layoutY="142.0" text="Label" />
-                        <Label layoutX="39.0" layoutY="30.0" prefHeight="30.0" prefWidth="178.0" text="Ingresar Kit">
+                        <Label layoutX="53.0" layoutY="115.0" prefHeight="32.0" prefWidth="112.0" text="Componente:">
                            <font>
-                              <Font name="Corbel Bold" size="20.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
+                        <Label layoutX="39.0" layoutY="30.0" prefHeight="30.0" prefWidth="178.0" text="Ingresar Kit">
+                           <font>
+                              <Font name="Corbel Bold" size="22.0" />
+                           </font>
+                        </Label>
+                        <Line endX="639.0" layoutX="194.0" layoutY="82.0" startX="-167.66665649414062" />
+                        <ComboBox layoutX="44.0" layoutY="151.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
                </content>
