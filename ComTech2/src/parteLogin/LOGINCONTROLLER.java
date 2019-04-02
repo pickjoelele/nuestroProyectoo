@@ -61,8 +61,6 @@ public class LOGINCONTROLLER implements Initializable {
 	private JFXTextField txt_contrasena;
 
 	@FXML
-	private Label lbl_crear_Cuenta;
-	@FXML
 	private Label lbl_olvide_contrasena;
 	@FXML
 	private Pane panel;

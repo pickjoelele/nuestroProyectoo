@@ -45,7 +45,7 @@
                   <Font name="Comic Sans MS Bold Italic" size="34.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="txt_contrasena" focusColor="#e1e5ee" labelFloat="true" layoutX="16.978103637695312" layoutY="217.51794528961182" opacity="0.89" prefHeight="30.0" prefWidth="304.0" promptText="Ingresa su Contrasena" style="-fx-background-color: #e1e5ee;" unFocusColor="#e1e5ee">
+            <JFXTextField fx:id="txt_contrasena" focusColor="#e1e5ee" labelFloat="true" layoutX="16.978103637695312" layoutY="217.51794528961182" opacity="0.89" prefHeight="30.0" prefWidth="304.0" promptText="Ingresa su Contraseña" style="-fx-background-color: #e1e5ee;" unFocusColor="#e1e5ee">
                <font>
                   <Font size="13.0" />
                </font>
@@ -53,12 +53,7 @@
                   <DropShadow color="#252323" height="9.14" radius="4.07" width="9.14" />
                </effect>
             </JFXTextField>
-            <Label fx:id="lbl_crear_Cuenta" layoutX="16.978103637695312" layoutY="254.51794528961182" onMouseClicked="#CrearCuenta" prefHeight="17.0" prefWidth="91.0" text="Crear Una Cuenta?" textFill="WHITE" underline="true">
-               <font>
-                  <Font name="System Italic" size="11.0" />
-               </font>
-            </Label>
-            <Label fx:id="lbl_olvide_contrasena" layoutX="215.9781036376953" layoutY="254.51794528961182" onMouseClicked="#resetContrasena" prefHeight="24.0" prefWidth="105.0" text="Olvidé la contrasena?" textFill="#4aff00" underline="true">
+            <Label fx:id="lbl_olvide_contrasena" layoutX="215.9781036376953" layoutY="254.51794528961182" onMouseClicked="#resetContrasena" prefHeight="24.0" prefWidth="105.0" text="Olvidé la contraseña" textFill="#4aff00" underline="true">
                <font>
                   <Font name="System Italic" size="11.0" />
                </font>
@@ -73,7 +68,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label layoutX="16.978103637695312" layoutY="188.51794528961182" prefHeight="17.0" prefWidth="123.0" text="Contrasena" textFill="WHITE">
+            <Label layoutX="16.978103637695312" layoutY="188.51794528961182" prefHeight="17.0" prefWidth="123.0" text="Contraseña" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

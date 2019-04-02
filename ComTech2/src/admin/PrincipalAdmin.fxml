@@ -366,7 +366,7 @@
                   <Image url="@../../pics/Users-Administrator-icon.png" />
                </image>
             </ImageView>
-            <TitledPane fx:id="compraComponentes" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Compra">
+            <TitledPane fx:id="compraComponentes" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Compra" visible="false">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -434,15 +434,25 @@
                                     <Label layoutX="14.0" layoutY="108.0" prefHeight="23.0" prefWidth="207.0" text="Almacenamiento" textFill="#2a324b" />
                                  </children>
                               </Pane>
-                              <Pane fx:id="paneCompraTarjetaMadre" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;" visible="false">
+                              <Pane fx:id="paneCompraTarjetaMadre" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;">
                                  <children>
                                     <Label layoutX="14.0" layoutY="48.0" prefHeight="23.0" prefWidth="149.0" text="Tipo de Ram" textFill="#2a324b" />
                                     <ComboBox fx:id="comboTarjetaTipoRam" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
                                     <Label layoutX="14.0" layoutY="107.0" prefHeight="23.0" prefWidth="207.0" text="Conexiones" textFill="#2a324b" />
                                     <ComboBox fx:id="comboTarjetaConexiones" layoutX="44.0" layoutY="130.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
+                                    <ImageView fx:id="addModelo1" fitHeight="30.0" fitWidth="45.0" layoutX="289.0" layoutY="69.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../eclipse-workspace/ComTech/pics/add-icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="addModelo11" fitHeight="30.0" fitWidth="45.0" layoutX="289.0" layoutY="128.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../eclipse-workspace/ComTech/pics/add-icon.png" />
+                                       </image>
+                                    </ImageView>
                                  </children>
                               </Pane>
-                              <Pane fx:id="paneCompraMicro" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;">
+                              <Pane fx:id="paneCompraMicro" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;" visible="false">
                                  <children>
                                     <TextField fx:id="textFieldMicroVelocidad" alignment="CENTER_RIGHT" layoutX="62.0" layoutY="65.0" prefHeight="25.0" prefWidth="238.0" />
                                     <Label layoutX="192.0" layoutY="142.0" prefHeight="30.0" prefWidth="29.0" text="GHZ" textFill="WHITE" />
@@ -496,6 +506,20 @@
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
             </JFXTextArea>
+            <TitledPane fx:id="listar_venta1" animated="false" layoutX="269.0" layoutY="110.0" prefHeight="548.0" prefWidth="856.0" text="Kit" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="215.0" AnchorPane.topAnchor="110.0">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="1142.0">
+                     <children>
+                        <Label layoutX="385.0" layoutY="142.0" text="Label" />
+                        <Label layoutX="39.0" layoutY="30.0" prefHeight="30.0" prefWidth="178.0" text="Ingresar Kit">
+                           <font>
+                              <Font name="Corbel Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
          </children>
          <padding>
             <Insets top="20.0" />

@@ -1,11 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="518.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resetContrasena.resetController">
    <children>
-      <Label layoutX="262.0" layoutY="167.0" text="Olvide mi contrasena !help me" />
+      <Pane layoutY="-1.0" prefHeight="109.0" prefWidth="518.0" style="-fx-background-color: #2a324b;">
+         <children>
+            <Label layoutX="84.0" layoutY="20.0" text="Restablecimiento de contraseña" textFill="WHITE">
+               <font>
+                  <Font name="Corbel Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="63.0" layoutY="55.0" text="Ingrese su usuario, nombre y fecha de nacimiento para restablecer la contraseña." textFill="WHITE">
+               <font>
+                  <Font name="Corbel" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <ImageView fitHeight="147.0" fitWidth="172.0" layoutX="303.0" layoutY="131.0" opacity="0.29" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Downloads/tima.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="paneUsuario" layoutX="43.0" layoutY="139.0" prefHeight="223.0" prefWidth="177.0">
+         <children>
+            <Label layoutX="1.0" prefHeight="17.0" prefWidth="68.0" text="Usuario:">
+               <font>
+                  <Font name="Corbel Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtFieldUsuario" layoutX="1.0" layoutY="26.0" />
+            <Label layoutX="1.0" layoutY="74.0" text="Nombre:">
+               <font>
+                  <Font name="Corbel Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtFieldNombre" layoutX="1.0" layoutY="103.0" />
+            <Label layoutY="149.0" text="Fecha de nacimiento:">
+               <font>
+                  <Font name="Corbel Bold" size="15.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="DateFechaNacimiento" layoutX="1.0" layoutY="175.0" prefHeight="25.0" prefWidth="149.0" />
+         </children>
+      </Pane>
+      <Button defaultButton="true" layoutX="295.0" layoutY="339.0" mnemonicParsing="false" onAction="#confirmar" prefHeight="28.0" prefWidth="68.0" style="-fx-background-color: #49AB66;" text="Aceptar" textFill="WHITE">
+         <font>
+            <Font name="Corbel Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="402.0" layoutY="339.0" mnemonicParsing="false" onAction="#regresarLogin" prefHeight="28.0" prefWidth="68.0" style="-fx-background-color: #DB3619;" text="Regresar" textFill="WHITE" />
+      <Pane fx:id="paneResetear" layoutX="43.0" layoutY="139.0" prefHeight="223.0" prefWidth="177.0" visible="false">
+         <children>
+            <Label layoutX="14.0" layoutY="21.0" text="Nueva contraseña:">
+               <font>
+                  <Font name="Corbel Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="94.0" text="Confirmar contraseña:">
+               <font>
+                  <Font name="Corbel Bold" size="15.0" />
+               </font>
+            </Label>
+            <PasswordField layoutX="12.0" layoutY="50.0" />
+            <PasswordField layoutX="14.0" layoutY="125.0" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
