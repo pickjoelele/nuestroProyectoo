@@ -2,25 +2,24 @@ package logical;
 
 public class DiscoDuro extends Componente{
 	
-	private String Almacenamiento;
+	private int Almacenamiento;
 	private String tipoConec;
+	public static int cantMinimal = 100;
+	public static int cantMax = 400;
+	public DiscoDuro(String modelo, String marca, float precio,String serie,int Almacenamiento, String tipoConec) {
+		super(modelo, marca, precio, serie);
 	
-	public DiscoDuro(String modelo, String marca, String tipo, float precio, int cantDisponible, String serie,String Almacenamiento, String tipoConec) {
-		super(modelo, marca, tipo, precio, cantDisponible, serie);
-		Componente.cantMinimal = 100;
-		
-		Componente.cantMax = 400;
 		this.Almacenamiento = Almacenamiento;
 		this.tipoConec = tipoConec;
 		// TODO Auto-generated constructor stub
 	}
 	
 
-	public String getAlmacenamiento() {
+	public int getAlmacenamiento() {
 		return Almacenamiento;
 	}
 
-	public void setAlmacenamiento(String almacenamiento) {
+	public void setAlmacenamiento(int almacenamiento) {
 		Almacenamiento = almacenamiento;
 	}
 

@@ -9,25 +9,28 @@ public class Controladora {
 	private Tienda tienda;
 	private ArrayList<String> modeloStr;
 	private ArrayList<String> marcaStr;
-	
+	private ArrayList<String> tipoRam;
+	private ArrayList<String> conexiones;
+	private ArrayList<String> TipoConector;
+
 	public Controladora() {
 		super();
 		Controladora.administradores = new ArrayList<Admin>();
 		Tienda tienda = new Tienda("Villa Olga", "Santiago");
 		this.setTienda(tienda);
-		new DiscoDuro("modelo", "marca", "tipo", 0, 0, "serie", "13", "dkd");
-		new Ram("modelo", "marca", "tipo", 0, 0, "serie", "13", "dkd");
-		new TarjetaMadre("modelo", "marca", "tipo", 0, 0, "serie", "13", "dkd");
-		new Microprocesador("modelo", "marca", "tipo", 0, 0, "serie", "13");
-		
+
 		Admin LevensonLaguerre = new Admin("Levenson", "Laguerre", "admin", "loteria,calle 3", "admin", "01/01/1997");
 		Admin Evelina = new Admin("Evelina", "Villa", "admin", "loteria,calle 3", "eve", "01/01/1997");
 		Admin Jhoan = new Admin("Jhoan", "Collado", "admin", "loteria,calle 3", "1234", "01/01/1997");
 		administradores.add(Jhoan);
 		administradores.add(Evelina);
 		administradores.add(LevensonLaguerre);
+
 		this.modeloStr = new ArrayList<String>();
-		this.marcaStr  = new ArrayList<String>();
+		this.marcaStr = new ArrayList<String>();
+		this.conexiones = new ArrayList<String>();
+		this.TipoConector = new ArrayList<String>();
+		this.tipoRam = new ArrayList<String>();
 
 	}
 
@@ -37,6 +40,18 @@ public class Controladora {
 
 	public ArrayList<String> getModeloStr() {
 		return modeloStr;
+	}
+
+	public ArrayList<String> getTipoRam() {
+		return tipoRam;
+	}
+
+	public ArrayList<String> getConexiones() {
+		return conexiones;
+	}
+
+	public ArrayList<String> getTipoConector() {
+		return TipoConector;
 	}
 
 	public ArrayList<String> getMarcaStr() {
@@ -81,6 +96,5 @@ public class Controladora {
 	public void setTienda(Tienda tienda) {
 		this.tienda = tienda;
 	}
-	
 
 }

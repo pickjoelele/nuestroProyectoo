@@ -4,15 +4,15 @@ public class TarjetaMadre extends Componente{
 
 	private String conexiones;
 	private String tipoDeRam;
-	
-	public TarjetaMadre(String modelo, String marca, String tipo, float precio, int cantDisponible, String serie, String conexiones, String tipoDeRam) {
-		super(modelo, marca, tipo, precio, cantDisponible, serie);
+	public static int cantMinimal = 50;
+	public static int cantMax = 300;
+	public TarjetaMadre(String modelo, String marca, float precio, String serie, String conexiones, String tipoDeRam) {
+		super(modelo, marca, precio, serie);
 		// TODO Auto-generated constructor stub
 		
 		this.conexiones = conexiones;
 		this.tipoDeRam = tipoDeRam;
-		Componente.cantMinimal = 90;
-		Componente.cantMax = 450;
+	
 		this.nombre = "Tarjeta Madre";
 	}
 

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXTextField;
 import Util.ComTechTools;
@@ -16,8 +17,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TableColumn;
@@ -32,6 +37,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import loadData.loadData;
 import logical.*;
 import suplidor.supliController;
@@ -122,7 +128,7 @@ public class principalAdminController implements Initializable {
 	@FXML
 	private BorderPane paneMicroprocesador;
 	@FXML
-	private TextField comboBoxPrecio;
+	private TextField txtFieldPrecio;
 	@FXML
 	private ComboBox<String> comboboxModelo;
 	@FXML
@@ -130,6 +136,15 @@ public class principalAdminController implements Initializable {
 
 	@FXML
 	private ComboBox<String> ComboxBoxSupli;
+	@FXML
+	private ComboBox<String> ComBoTipoRam;
+	@FXML
+	private ComboBox<String> comboDiscoTipoConector;
+	@FXML
+	private ComboBox<String> comboTarjetaTipoRam;
+	@FXML
+	private ComboBox<String> comboTarjetaConexiones;
+
 	@FXML
 	private Pane paneCompraRam;
 
@@ -159,6 +174,14 @@ public class principalAdminController implements Initializable {
 
 	@FXML
 	private TextField txtFieldSerie;
+	@FXML
+	private TextField txtFieldCantMemoria;
+	@FXML
+	private TextField txtFieldCantidad;
+	@FXML
+	private TextField txtDiscoalma;
+	@FXML
+	private TextField textFieldMicroVelocidad;
 
 	@FXML
 	void exit(MouseEvent event) {
@@ -191,6 +214,76 @@ public class principalAdminController implements Initializable {
 	}
 
 	@FXML
+	void ingresarCompra(ActionEvent event) {
+		String modelo = txtFieldModel.getText();
+		String marca = txtfieldMarca.getText();
+		float precio = Float.parseFloat(txtFieldPrecio.getText());
+		String serie = txtFieldSerie.getText();
+		String supliNombre = ComboxBoxSupli.getValue();
+		int x = 0;
+		if (paneCompraRam.isVisible()) {
+			Ram ram = new Ram(modelo, marca, precio, serie, txtFieldCantMemoria.getText(),
+					ComBoTipoRam.getValue().toString());
+			if ((!modelo.isEmpty()) && (!marca.isEmpty()) && (precio > 0) && (!serie.isEmpty())
+					&& (!txtFieldCantMemoria.getText().isEmpty()) && (!ComBoTipoRam.getValue().toString().isEmpty())) {
+				control.getTienda().insertarUnComponente(ram);
+				x = 1;
+			}
+
+		} else if (paneDiscoDuro.isVisible()) {
+			int alma = Integer.parseInt(txtDiscoalma.getText());
+			DiscoDuro disco = new DiscoDuro(modelo, marca, precio, serie, alma,
+					comboDiscoTipoConector.getValue().toString());
+			if ((!modelo.isEmpty()) && (!marca.isEmpty()) && (precio > 0) && (!serie.isEmpty()) && (alma > 0)
+					&& (!comboDiscoTipoConector.getValue().toString().isEmpty())) {
+				control.getTienda().insertarUnComponente(disco);
+				x = 1;
+			}
+		} else if (paneCompraTarjetaMadre.isVisible()) {
+			TarjetaMadre tar = new TarjetaMadre(modelo, marca, precio, serie,
+					comboTarjetaConexiones.getValue().toString(), comboTarjetaTipoRam.getValue().toString());
+			if ((!modelo.isEmpty()) && (!marca.isEmpty()) && (precio > 0) && (!serie.isEmpty())
+					&& (!comboTarjetaConexiones.getValue().toString().isEmpty())
+					&& (!comboTarjetaTipoRam.getValue().toString().isEmpty())) {
+				control.getTienda().insertarUnComponente(tar);
+				x = 1;
+			}
+		} else if (paneCompraMicro.isVisible()) {
+			Microprocesador micro = new Microprocesador(modelo, marca, precio, serie,
+					textFieldMicroVelocidad.getText());
+			if ((!modelo.isEmpty()) && (!marca.isEmpty()) && (precio > 0) && (!serie.isEmpty())
+					&& (!textFieldMicroVelocidad.getText().isEmpty())) {
+				control.getTienda().insertarUnComponente(micro);
+				x = 1;
+			}
+		}
+		if (x == 1) {
+			ComTechTools.Setnotification("Exito", "Tu compra fue de Exito", 2, "mooo.png");
+			txtFieldModel.clear();
+			txtfieldMarca.clear();
+			txtFieldPrecio.clear();
+			txtFieldSerie.clear();
+			ComboxBoxSupli.getSelectionModel().clearSelection();
+			txtFieldCantMemoria.clear();
+			ComBoTipoRam.getSelectionModel().clearSelection();
+			txtFieldCantMemoria.clear();
+			ComBoTipoRam.getSelectionModel().clearSelection();
+			comboDiscoTipoConector.getSelectionModel().clearSelection();
+			txtDiscoalma.clear();
+			comboTarjetaConexiones.getSelectionModel().clearSelection();
+			comboTarjetaTipoRam.getSelectionModel().clearSelection();
+			textFieldMicroVelocidad.clear();
+			
+			//clean the nodes
+			
+			
+		}
+		else
+			ComTechTools.Setnotification("Error", "Revise por favor", 2, "delete.png");
+
+	}
+
+	@FXML
 	void addMarcaClick(MouseEvent event) {
 		addMarca.setVisible(false);
 		txtfieldMarca.setVisible(true);
@@ -206,12 +299,13 @@ public class principalAdminController implements Initializable {
 			}
 		});
 	}
+
 	@FXML
-    void addSupliClick(MouseEvent event) throws IOException {
+	void addSupliClick(MouseEvent event) throws IOException {
 		supliController supli = new supliController();
 		supli.display();
 		llenarComboBox();
-    }
+	}
 
 	@FXML
 	void addModelClick(MouseEvent event) {
@@ -235,8 +329,8 @@ public class principalAdminController implements Initializable {
 	void regresarCompra(ActionEvent event) {
 		setAllPanelInvisible();
 		getComponentsStatistics();
-		hacer_compra.setVisible(true);	
-		
+		hacer_compra.setVisible(true);
+
 	}
 
 	@FXML
@@ -266,6 +360,7 @@ public class principalAdminController implements Initializable {
 			txt_contrasena_vendedor.setText("");
 			datapicker_fechaVendedor.setValue(LocalDate.now());
 			loadVendedorTabla();
+
 			ComTechTools.Setnotification("Exito", "Ingreso con exito", 2, "mooo.png");
 
 		} else {
@@ -282,14 +377,13 @@ public class principalAdminController implements Initializable {
 	}
 
 	public void getComponentsStatistics() {
-		paneRam.setCenter(
-				ComTechTools.GaugeMethod(Ram.getCantMinimal(), Ram.getCantDisponible(), Ram.getCantMinimal(), "Ram"));
-		paneDiscoDuro.setCenter(ComTechTools.GaugeMethod(DiscoDuro.getCantMinimal(), DiscoDuro.getCantDisponible(),
-				DiscoDuro.getCantMax(), "Disco Duro"));
-		paneTarjetaMadre.setCenter(ComTechTools.GaugeMethod(TarjetaMadre.getCantMinimal(),
-				TarjetaMadre.getCantDisponible(), TarjetaMadre.getCantMax(), "Tarjeta Madre"));
-		paneMicroprocesador.setCenter(ComTechTools.GaugeMethod(Microprocesador.getCantMinimal(),
-				Microprocesador.getCantDisponible(), Microprocesador.getCantMax(), "Microprocesador"));
+		paneRam.setCenter(ComTechTools.GaugeMethod(Ram.cantMinimal, control.getTienda().cantRam(), Ram.cantMax, "Ram"));
+		paneDiscoDuro.setCenter(ComTechTools.GaugeMethod(DiscoDuro.cantMinimal, control.getTienda().cantDiscoDuro(),
+				DiscoDuro.cantMax, "Disco Duro"));
+		paneTarjetaMadre.setCenter(ComTechTools.GaugeMethod(TarjetaMadre.cantMinimal,
+				control.getTienda().cantTarjetaMadre(), TarjetaMadre.cantMax, "Tarjeta Madre"));
+		paneMicroprocesador.setCenter(ComTechTools.GaugeMethod(Microprocesador.cantMinimal,
+				control.getTienda().cantMicroprocesador(), Microprocesador.cantMax, "Microprocesador"));
 	}
 
 	@FXML
@@ -334,6 +428,7 @@ public class principalAdminController implements Initializable {
 		node.setStyle("-fx-background-color : #2a324b");
 		if (node.getId().equalsIgnoreCase(paneRam.getId())) {
 			setAllPanelInvisible();
+
 			compraComponentes.setVisible(true);
 			lblTituloCompra.setText("Ingresar Ram");
 			paneCompraRam.setVisible(true);
@@ -420,11 +515,31 @@ public class principalAdminController implements Initializable {
 		int com = comboboxModelo.getSelectionModel().getSelectedIndex();
 		comboboxModelo.getItems().setAll(control.getModeloStr());
 		comboboxModelo.getSelectionModel().clearAndSelect(com);
-		
+
 		int marca = comboBoxMarca.getSelectionModel().getSelectedIndex();
 		comboBoxMarca.getItems().setAll(control.getMarcaStr());
 		comboBoxMarca.getSelectionModel().clearAndSelect(marca);
 		
+		int tipoConector = comboDiscoTipoConector.getSelectionModel().getSelectedIndex();
+		comboDiscoTipoConector.getItems().setAll(control.getTipoConector());
+		comboDiscoTipoConector.getSelectionModel().clearAndSelect(tipoConector);
+		
+		int tipoRam = ComBoTipoRam.getSelectionModel().getSelectedIndex();
+		int tipoMicro = comboTarjetaTipoRam.getSelectionModel().getSelectedIndex();
+		
+		ComBoTipoRam.getItems().setAll(control.getTipoRam());
+		comboTarjetaTipoRam.getItems().setAll(control.getTipoRam());
+
+		ComBoTipoRam.getSelectionModel().clearAndSelect(tipoRam);
+		comboTarjetaTipoRam.getSelectionModel().clearAndSelect(tipoMicro);
+
+		//ram de tarjeta
+		
+		int conexioneTarje = comboTarjetaConexiones.getSelectionModel().getSelectedIndex();
+		comboTarjetaConexiones.getItems().setAll(control.getConexiones());
+		comboTarjetaConexiones.getSelectionModel().clearAndSelect(conexioneTarje);
+		
+
 		// add combobox para suplidores
 		String[] listSupli = getListSupli();
 		int supli = ComboxBoxSupli.getSelectionModel().getSelectedIndex();

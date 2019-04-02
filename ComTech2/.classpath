@@ -27,5 +27,6 @@
 	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/jfoenix-9.0.8.jar"/>
 	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/AnimateFX-1.2.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/Medusa-8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lele/eclipse-workspace/ComTech/lib/lib dialog/javafx-dialogs-0.0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

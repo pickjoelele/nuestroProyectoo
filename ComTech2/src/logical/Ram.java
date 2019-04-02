@@ -1,18 +1,20 @@
 package logical;
 
 public class Ram extends Componente {
-	
+
 	private String cantMemoria;
 	private String tipoRam;
+	public static int cantMinimal = 80;
+	public static int cantMax = 450;
 
-	public Ram(String modelo, String marca, String tipo, float precio, int cantDisponible, String serie, String cantMemoria, String tipoRam) {
-		super(modelo, marca, tipo, precio, cantDisponible, serie);
+	public Ram(String modelo, String marca,float precio, String serie,
+			String cantMemoria, String tipoRam) {
+		super(modelo, marca, precio, serie);
 		// TODO Auto-generated constructor stub
 		this.cantMemoria = cantMemoria;
 		this.tipoRam = tipoRam;
 		this.nombre = "Ram";
-		Componente.cantMinimal = 80;
-		Componente.cantMax = 450;	}
+	}
 
 	public String getCantMemoria() {
 		return cantMemoria;

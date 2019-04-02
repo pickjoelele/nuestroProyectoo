@@ -12,7 +12,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
-<?import Util.*?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
@@ -388,7 +387,7 @@
                                     </Label>
                                  </children>
                               </Pane>
-                              <TextField fx:id="comboBoxPrecio" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="273.0" prefHeight="25.0" prefWidth="149.0" promptText="\$ RD " />
+                              <TextField fx:id="txtFieldPrecio" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="273.0" prefHeight="25.0" prefWidth="149.0" promptText="\$ RD " />
                               <Label layoutX="51.0" layoutY="90.0" prefHeight="23.0" prefWidth="149.0" text="Modelo" textFill="#2a324b">
                                  <font>
                                     <Font name="Consolas Bold" size="12.0" />
@@ -418,34 +417,34 @@
                                        <font>
                                           <Font name="Consolas Bold" size="12.0" />
                                        </font></Label>
-                                    <ComboBox layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
+                                    <ComboBox fx:id="ComBoTipoRam" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
                                     <Label layoutX="14.0" layoutY="111.0" prefHeight="23.0" prefWidth="207.0" text="Cantidad memoria (MB)" textFill="#2a324b">
                                        <font>
                                           <Font name="Consolas Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="txtFieldSerie1" alignment="CENTER_RIGHT" layoutX="50.0" layoutY="140.0" prefHeight="25.0" prefWidth="231.0" />
+                                    <TextField fx:id="txtFieldCantMemoria" alignment="CENTER_RIGHT" layoutX="50.0" layoutY="140.0" prefHeight="25.0" prefWidth="231.0" />
                                  </children>
                               </Pane>
                               <Pane fx:id="paneCompraDiscoDuro" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;" visible="false">
                                  <children>
                                     <Label layoutX="14.0" layoutY="48.0" prefHeight="23.0" prefWidth="149.0" text="Tipo de Conector" />
-                                    <ComboBox layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
-                                    <TextField alignment="CENTER_RIGHT" layoutX="43.0" layoutY="131.0" prefHeight="25.0" prefWidth="149.0" promptText="\$ RD " />
+                                    <ComboBox fx:id="comboDiscoTipoConector" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
+                                    <TextField fx:id="txtDiscoalma" alignment="CENTER_RIGHT" layoutX="43.0" layoutY="131.0" prefHeight="25.0" prefWidth="149.0" promptText="\$ RD " />
                                     <Label layoutX="14.0" layoutY="108.0" prefHeight="23.0" prefWidth="207.0" text="Almacenamiento" textFill="#2a324b" />
                                  </children>
                               </Pane>
                               <Pane fx:id="paneCompraTarjetaMadre" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;" visible="false">
                                  <children>
                                     <Label layoutX="14.0" layoutY="48.0" prefHeight="23.0" prefWidth="149.0" text="Tipo de Ram" textFill="#2a324b" />
-                                    <ComboBox layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
+                                    <ComboBox fx:id="comboTarjetaTipoRam" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
                                     <Label layoutX="14.0" layoutY="107.0" prefHeight="23.0" prefWidth="207.0" text="Conexiones" textFill="#2a324b" />
-                                    <ComboBox layoutX="44.0" layoutY="130.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
+                                    <ComboBox fx:id="comboTarjetaConexiones" layoutX="44.0" layoutY="130.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
                                  </children>
                               </Pane>
                               <Pane fx:id="paneCompraMicro" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;">
                                  <children>
-                                    <TextFieldOnlyNumber fx:id="textFieldVelocidad" alignment="CENTER_RIGHT" layoutX="62.0" layoutY="65.0" prefHeight="25.0" prefWidth="238.0" />
+                                    <TextField fx:id="textFieldMicroVelocidad" alignment="CENTER_RIGHT" layoutX="62.0" layoutY="65.0" prefHeight="25.0" prefWidth="238.0" />
                                     <Label layoutX="192.0" layoutY="142.0" prefHeight="30.0" prefWidth="29.0" text="GHZ" textFill="WHITE" />
                                     <Label layoutX="14.0" layoutY="30.0" prefHeight="23.0" prefWidth="149.0" text="Velocidad" textFill="#2a324b">
                                        <font>
@@ -454,7 +453,7 @@
                                     </Label>
                                  </children>
                               </Pane>
-                              <JFXButton buttonType="RAISED" defaultButton="true" layoutX="339.0" layoutY="450.0" prefHeight="37.0" prefWidth="149.0" ripplerFill="#9ef7b9" style="-fx-background-color: #2a324b;" text="Ingresar" textFill="WHITE">
+                              <JFXButton buttonType="RAISED" layoutX="339.0" layoutY="450.0" onAction="#ingresarCompra" prefHeight="37.0" prefWidth="149.0" ripplerFill="#9ef7b9" style="-fx-background-color: #2a324b;" text="Ingresar" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -476,13 +475,13 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </JFXButton>
-                              <TextFieldOnlyNumber fx:id="txtFieldSerie" alignment="CENTER_RIGHT" layoutX="87.0" layoutY="222.0" prefHeight="25.0" prefWidth="231.0" />
+                              <TextField fx:id="txtFieldSerie" alignment="CENTER_RIGHT" layoutX="87.0" layoutY="222.0" prefHeight="25.0" prefWidth="231.0" />
                               <Label layoutX="437.0" layoutY="354.0" prefHeight="23.0" prefWidth="207.0" text="Cantidad " textFill="#2a324b">
                                  <font>
                                     <Font name="Consolas Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtFieldSerie2" alignment="CENTER_RIGHT" layoutX="473.0" layoutY="383.0" prefHeight="25.0" prefWidth="231.0" />
+                              <TextField fx:id="txtFieldCantidad" alignment="CENTER_RIGHT" layoutX="473.0" layoutY="383.0" prefHeight="25.0" prefWidth="231.0" />
                            </children>
                         </Pane>
                      </children>

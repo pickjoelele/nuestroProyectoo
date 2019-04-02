@@ -2,6 +2,8 @@ package logical;
 
 import java.util.ArrayList;
 
+import javafx.scene.control.Dialogs.DialogResponse;
+
 public class Tienda {
 	//
 	private String municipio;
@@ -12,7 +14,8 @@ public class Tienda {
 	private ArrayList<Vendedor> vendedores;
 	private ArrayList<Factura> facturas;
 	private ArrayList<Compra> compras;
-	public Tienda(String direccion,String municipio) {
+
+	public Tienda(String direccion, String municipio) {
 		super();
 		this.municipio = municipio;
 		this.setDireccion(direccion);
@@ -22,11 +25,10 @@ public class Tienda {
 		this.vendedores = new ArrayList<Vendedor>();
 		this.facturas = new ArrayList<Factura>();
 		this.compras = new ArrayList<Compra>();
-	
 
 	}
-	
-	public String getMunicipio(){
+
+	public String getMunicipio() {
 		return municipio;
 	}
 
@@ -95,22 +97,28 @@ public class Tienda {
 		return true;
 	}
 
-	public boolean insertarUnaCompra(Compra compra) {
+	public void insertarUnaCompra(Compra compra) {
 		int cant = 0;
+
 		if (compra.getMiComp() instanceof TarjetaMadre)
 			cant = cantTarjetaMadre();
 		else if (compra.getMiComp() instanceof Ram)
 			cant = cantRam();
+		else if (compra.getMiComp() instanceof DiscoDuro)
+			cant = cantDiscoDuro();
 		else
 			cant = cantMicroprocesador();
-		System.out.println(cant);
-		if (cant <= compra.getMiComp().getCantMinimal()) {
-			this.compras.add(compra);
-			compra.getMiComp().setCantDisponible(compra.getCantidad());
-			return true;
-		} else {
-			return false;
-		}
+//
+//		if (cant <= compra.getMiComp().cant) {
+//			{
+////				DialogResponse response = Dialogs.showConfirmDialog(stage, "Do you want to continue?", "Confirm Dialog",
+////						"title");
+//			}
+//		} else {
+//			return false;
+//		}
+		
+//		return false;
 
 	}
 
@@ -156,7 +164,7 @@ public class Tienda {
 
 		for (Componente comp : componentes) {
 			if (comp instanceof TarjetaMadre) {
-				cant += comp.getCantDisponible();
+				cant++;
 			}
 		}
 		return cant;
@@ -169,7 +177,7 @@ public class Tienda {
 
 		for (Componente comp : componentes) {
 			if (comp instanceof Ram) {
-				cant += comp.getCantDisponible();
+				cant++;
 			}
 		}
 		return cant;
@@ -182,8 +190,22 @@ public class Tienda {
 
 		for (Componente comp : componentes) {
 			if (comp instanceof Microprocesador) {
-				cant += comp.getCantDisponible();
+				cant++;
 			}
+
+		}
+		return cant;
+
+	}
+
+	public int cantDiscoDuro() {
+		int cant = 0;
+
+		for (Componente comp : componentes) {
+			if (comp instanceof DiscoDuro) {
+				cant++;
+			}
+
 		}
 		return cant;
 
