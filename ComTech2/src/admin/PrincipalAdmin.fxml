@@ -142,7 +142,7 @@
                   </AnchorPane>
               </content>
             </TitledPane>
-            <TitledPane fx:id="hacer_compra" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Hacer Compra" visible="false" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="105.0">
+            <TitledPane fx:id="hacer_compra" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Hacer Compra" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="105.0">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #e1e5ee;">
                      <children>
@@ -163,7 +163,7 @@
                            </children>
                         </GridPane>
                         <Label layoutX="63.0" layoutY="452.0" prefHeight="29.0" prefWidth="56.0" style="-fx-border-color: WHITE; -fx-background-color: #F23A43;" />
-                        <Label layoutX="140.0" layoutY="458.0" text="CANT &lt;= CANT MINIMAL">
+                        <Label layoutX="140.0" layoutY="458.0" text="ESTADO CRITICO">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -175,7 +175,7 @@
                            </font>
                         </Label>
                         <Label layoutX="602.0" layoutY="452.0" prefHeight="29.0" prefWidth="56.0" style="-fx-border-color: WHITE; -fx-background-color: #27F11C;" />
-                        <Label layoutX="679.0" layoutY="458.0" text="CANT &gt; CANT MAXIMAL">
+                        <Label layoutX="679.0" layoutY="458.0" text="ESTADO MAXIMAL">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -367,7 +367,7 @@
                   <Image url="@../../pics/Users-Administrator-icon.png" />
                </image>
             </ImageView>
-            <TitledPane fx:id="compraComponentes" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Compra">
+            <TitledPane fx:id="compraComponentes" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Compra" visible="false">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -425,6 +425,11 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="txtFieldCantMemoria" alignment="CENTER_RIGHT" layoutX="50.0" layoutY="140.0" prefHeight="25.0" prefWidth="231.0" />
+                                    <ImageView fx:id="addModelo2" fitHeight="30.0" fitWidth="45.0" layoutX="287.0" layoutY="67.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../pics/add-icon.png" />
+                                       </image>
+                                    </ImageView>
                                  </children>
                               </Pane>
                               <Pane fx:id="paneCompraDiscoDuro" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;" visible="false">
@@ -433,6 +438,11 @@
                                     <ComboBox fx:id="comboDiscoTipoConector" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
                                     <TextField fx:id="txtDiscoalma" alignment="CENTER_RIGHT" layoutX="43.0" layoutY="131.0" prefHeight="25.0" prefWidth="149.0" promptText="\$ RD " />
                                     <Label layoutX="14.0" layoutY="108.0" prefHeight="23.0" prefWidth="207.0" text="Almacenamiento" textFill="#2a324b" />
+                                    <ImageView fx:id="addModelo3" fitHeight="30.0" fitWidth="45.0" layoutX="288.0" layoutY="73.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../pics/add-icon.png" />
+                                       </image>
+                                    </ImageView>
                                  </children>
                               </Pane>
                               <Pane fx:id="paneCompraTarjetaMadre" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;" visible="false">
@@ -453,7 +463,7 @@
                                     </ImageView>
                                  </children>
                               </Pane>
-                              <Pane fx:id="paneCompraMicro" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;" visible="false">
+                              <Pane fx:id="paneCompraMicro" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;">
                                  <children>
                                     <TextField fx:id="textFieldMicroVelocidad" alignment="CENTER_RIGHT" layoutX="62.0" layoutY="65.0" prefHeight="25.0" prefWidth="238.0" />
                                     <Label layoutX="192.0" layoutY="142.0" prefHeight="30.0" prefWidth="29.0" text="GHZ" textFill="WHITE" />
