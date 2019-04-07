@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1366.0">
+         <children>
+            <Pane layoutX="-9.0" layoutY="1.0" prefHeight="51.0" prefWidth="1380.0" style="-fx-background-color: #2a324b;">
+               <children>
+                  <Label layoutX="46.0" layoutY="10.0" text="Tech" textFill="WHITE">
+                     <font>
+                        <Font name="Courier New" size="31.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="123.0" layoutY="10.0" text="Com" textFill="#9ef7b9">
+                     <font>
+                        <Font name="Courier New Bold" size="32.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <GridPane layoutX="462.0" layoutY="14.0" prefHeight="23.0" prefWidth="896.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Label" />
+                  <Label text="Te llamamos" textFill="#58e892" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Consolas Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="Ayuda" textFill="#e89258" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="Consolas Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="Log out" textFill="#3fbfbf" GridPane.columnIndex="3">
+                     <font>
+                        <Font name="Consolas Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.columnIndex="4" />
+               </children>
+            </GridPane>
+            <TitledPane animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Kits">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox layoutX="32.0" layoutY="21.0" prefHeight="38.0" prefWidth="80.0" />
+                        <TextField layoutX="112.0" layoutY="21.0" prefHeight="38.0" prefWidth="650.0" promptText="Buscar" />
+                        <JFXButton layoutX="761.0" layoutY="21.0" prefHeight="38.0" prefWidth="56.0" style="-fx-background-color: #D5E1C5;" text="Buscar">
+                           <font>
+                              <Font name="Consolas" size="12.0" />
+                           </font>
+                        </JFXButton>
+                        <Pane layoutX="32.0" layoutY="59.0" prefHeight="217.0" prefWidth="786.0" style="-fx-background-color: #D2F3F3; -fx-border-color: #0D5D5D;">
+                           <children>
+                              <JFXButton layoutX="638.0" layoutY="178.0" prefHeight="17.0" prefWidth="120.0" style="-fx-background-color: #81DB14; -fx-border-color: #0D5D5D; -fx-border-radius: 5px;" text="crear" textFill="#1e0875">
+                                 <font>
+                                    <Font name="Courier New Bold" size="12.0" />
+                                 </font>
+                              </JFXButton>
+                              <GridPane layoutX="33.0" layoutY="28.0" prefHeight="129.0" prefWidth="740.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="32.0" layoutY="276.0" prefHeight="230.0" prefWidth="527.0" style="-fx-background-color: #D4FCFC; -fx-border-color: #0D5D5D; -fx-border-radius: 8px;">
+                           <children>
+                              <Label alignment="CENTER" layoutX="124.0" layoutY="5.0" prefHeight="19.0" prefWidth="162.0" style="-fx-background-color: #D5E1C5; -fx-border-color: white; -fx-border-radius: 3px;" text="Kits Disponibles" textFill="#491161">
+                                 <font>
+                                    <Font name="Consolas Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <GridPane layoutX="22.0" layoutY="56.0" prefHeight="151.0" prefWidth="473.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="559.0" layoutY="277.0" prefHeight="229.0" prefWidth="258.0" style="-fx-background-color: #D5E1C5; -fx-border-color: #0D5D5D;">
+                           <children>
+                              <Label alignment="CENTER" layoutX="54.0" layoutY="5.0" prefHeight="19.0" prefWidth="162.0" style="-fx-background-color: #D5E1C5; -fx-border-color: white; -fx-border-radius: 3px;" text="Kits Mas Vendidos" textFill="#491161">
+                                 <font>
+                                    <Font name="Consolas Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <GridPane layoutX="20.0" layoutY="51.0" prefHeight="161.0" prefWidth="215.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <MenuBar layoutX="257.0" layoutY="52.0" prefHeight="42.0" prefWidth="852.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Pane layoutX="13.0" layoutY="116.0" prefHeight="548.0" prefWidth="238.0" style="-fx-background-color: #e1e5ee; -fx-border-color: black; -fx-border-radius: 5px;">
+               <children>
+                  <JFXTextArea focusColor="#5740a8" layoutX="16.0" layoutY="76.0" prefHeight="464.0" prefWidth="207.0" promptText="Blog para notas inmediatas " style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5px;" unFocusColor="#e40a0a">
+                     <font>
+                        <Font name="Arial" size="25.0" />
+                     </font>
+                  </JFXTextArea>
+               </children>
+            </Pane>
+            <Pane layoutX="1133.0" layoutY="52.0" prefHeight="548.0" prefWidth="238.0" style="-fx-background-color: #e1e5ee; -fx-border-color: black; -fx-border-radius: 5px;">
+               <children>
+                  <JFXTextArea focusColor="#5740a8" layoutX="16.0" layoutY="23.0" prefHeight="406.0" prefWidth="207.0" promptText="Blog para notas inmediatas " style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5px;" unFocusColor="#e40a0a">
+                     <font>
+                        <Font name="Arial" size="25.0" />
+                     </font>
+                  </JFXTextArea>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

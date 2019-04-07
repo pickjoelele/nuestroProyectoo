@@ -1,7 +1,13 @@
 package logical;
 
-public abstract class Componente {
+import java.io.Serializable;
 
+public abstract class Componente implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6251705858912739731L;
 	protected String modelo;
 	protected String marca;
 	protected float precio;
@@ -9,14 +15,17 @@ public abstract class Componente {
 	protected String serie;
 	protected String nombre;
 	protected String supliNombre;
-	public Componente(String modelo, String marca,float precio, String serie) {
+	protected String imagen;
+	public int cantDispo;
+	public Componente(String modelo, String marca,float precio, String serie,String imagen) {
 		super();
 		this.modelo = modelo;
-		this.precioVenta = (float) (precio + (0.30*precio));
 		this.marca = marca;
 		this.precio = precio;
 		this.serie = serie;
+		this.imagen = imagen;
 	}
+	public abstract String getDetalles();
 
 
 
@@ -32,6 +41,27 @@ public abstract class Componente {
 		return marca;
 	}
 
+	public int getCantDispo() {
+		return cantDispo;
+	}
+
+
+
+
+
+
+	public String getImagen() {
+		return imagen;
+	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+
 	public String getSupliNombre() {
 		return supliNombre;
 	}
@@ -44,8 +74,8 @@ public abstract class Componente {
 		return precioVenta;
 	}
 
-	public void setPrecioVenta(float precioVenta) {
-		this.precioVenta = precioVenta;
+	public void setPrecioVenta(float porcentaje) {
+		this.precioVenta = precio + (porcentaje/100 )*precio;
 	}
 
 

@@ -7,9 +7,9 @@ public class Ram extends Componente {
 	public static int cantMinimal = 80;
 	public static int cantMax = 450;
 
-	public Ram(String modelo, String marca,float precio, String serie,
+	public Ram(String modelo, String marca,float precio, String serie,String imagen,
 			String cantMemoria, String tipoRam) {
-		super(modelo, marca, precio, serie);
+		super(modelo, marca, precio, serie,imagen);
 		// TODO Auto-generated constructor stub
 		this.cantMemoria = cantMemoria;
 		this.tipoRam = tipoRam;
@@ -31,5 +31,11 @@ public class Ram extends Componente {
 	public void setTipoRam(String tipoRam) {
 		this.tipoRam = tipoRam;
 	}
+
+	@Override
+	public String getDetalles() {
+		// TODO Auto-generated method stub
+		String str = String.format("%s   %s   %s  \n%s  %s",nombre,modelo,marca,tipoRam,cantMemoria );
+		return str;	}
 
 }

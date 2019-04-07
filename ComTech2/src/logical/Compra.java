@@ -1,55 +1,58 @@
 package logical;
 
-public class Compra {
+import java.io.Serializable;
+import java.util.Date;
 
-	private String miSuplidor;
-	private Componente miComp;
-	private int cantidad;
+import Util.Utiles;
+
+public class Compra implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5335676784544226857L;
+	private String supliNombre;
+	private String pais;
+	private String nombreComponente;
 	private float precio;
 	private float precioTotal;
 	private String fecha;
+	private int cant;
 
-	public Compra(String miSuplidor, Componente miComp, int cantidad, String fecha) {
+	public Compra(String supliNombre, String pais, String nombreComponente, float precio,
+			 int cant) {
 		super();
-		this.miSuplidor = miSuplidor;
-		this.miComp = miComp;
-		this.cantidad = cantidad;
-		this.precio = miComp.getPrecio();
-		this.fecha = fecha;
-		this.precioTotal = cantidad * precio;
-
+		this.supliNombre = supliNombre;
+		this.pais = pais;
+		this.nombreComponente = nombreComponente;
+		this.precio = precio;
+		this.precioTotal = precio*cant;
+		this.fecha = Utiles.convertDateToString(new Date());
+		this.cant = cant;
 	}
 
-	public float getPrecioTotal() {
-		return precioTotal;
+	public String getSupliNombre() {
+		return supliNombre;
 	}
 
-	public void setPrecioTotal(float precioTotal) {
-		this.precioTotal = precioTotal;
+	public void setSupliNombre(String supliNombre) {
+		this.supliNombre = supliNombre;
 	}
 
-	public String getMiSuplidor() {
-		return miSuplidor;
+	public String getPais() {
+		return pais;
 	}
 
-	public void setMiSuplidor(String miSuplidor) {
-		this.miSuplidor = miSuplidor;
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
 
-	public Componente getMiComp() {
-		return miComp;
+	public String getNombreComponente() {
+		return nombreComponente;
 	}
 
-	public void setMiComp(Componente miComp) {
-		this.miComp = miComp;
-	}
-
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
+	public void setNombreComponente(String nombreComponente) {
+		this.nombreComponente = nombreComponente;
 	}
 
 	public float getPrecio() {
@@ -60,12 +63,28 @@ public class Compra {
 		this.precio = precio;
 	}
 
+	public float getPrecioTotal() {
+		return precioTotal;
+	}
+
+	public void setPrecioTotal(float precioTotal) {
+		this.precioTotal = precioTotal;
+	}
+
 	public String getFecha() {
 		return fecha;
 	}
 
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
+	}
+
+	public int getCant() {
+		return cant;
+	}
+
+	public void setCant(int cant) {
+		this.cant = cant;
 	}
 
 }

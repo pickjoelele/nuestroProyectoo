@@ -14,6 +14,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -120,7 +121,7 @@
                   </Menu>
               </menus>
             </MenuBar>
-            <TitledPane fx:id="dashboard" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Dashboard" visible="false" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="105.0">
+            <TitledPane fx:id="dashboard" animated="false" contentDisplay="CENTER" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Dashboard" visible="false" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="105.0">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -142,7 +143,7 @@
                   </AnchorPane>
               </content>
             </TitledPane>
-            <TitledPane fx:id="hacer_compra" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Hacer Compra" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="105.0">
+            <TitledPane fx:id="hacer_compra" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Hacer Compra" visible="false" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="105.0">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #e1e5ee;">
                      <children>
@@ -188,7 +189,21 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="385.0" layoutY="142.0" text="Label" />
+                        <TableView fx:id="tableCompra" layoutX="6.0" layoutY="8.0" prefHeight="486.0" prefWidth="827.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Suplidor">
+                                 <columns>
+                                    <TableColumn fx:id="tableCompraNombre" maxWidth="200.0" prefWidth="200.0" text="Nombre" />
+                                    <TableColumn fx:id="tableCompraPais" maxWidth="130.0" prefWidth="125.0" text="Pais" />
+                                 </columns>
+                              </TableColumn>
+                            <TableColumn fx:id="tableCompraComponente" prefWidth="100.0" text="Componente" />
+                              <TableColumn fx:id="tableCompraPrecio" prefWidth="100.0" text="Precio" />
+                              <TableColumn fx:id="tableCompraCant" prefWidth="100.0" text="Cant" />
+                              <TableColumn fx:id="tableCompraPrecioTotal" prefWidth="100.0" text="Precio total" />
+                              <TableColumn fx:id="tableCompraFecha" prefWidth="100.0" text="Fecha" />
+                          </columns>
+                        </TableView>
                      </children>
                   </AnchorPane>
                </content>
@@ -343,7 +358,15 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="385.0" layoutY="142.0" text="Label" />
+                        <TableView fx:id="tableCliente" layoutX="7.0" layoutY="57.0" prefHeight="432.0" prefWidth="831.0">
+                          <columns>
+                            <TableColumn fx:id="tableClienteId" prefWidth="150.0" text="ID" />
+                            <TableColumn fx:id="tableClienteNombre" prefWidth="180.0" text="Nombre" />
+                              <TableColumn fx:id="tableClienteApellido" prefWidth="180.0" text="Apellido" />
+                              <TableColumn fx:id="tableClienteDireccion" prefWidth="170.0" text="Direccion" />
+                              <TableColumn fx:id="tableClienteCompras" prefWidth="150.0" text="Compras" />
+                          </columns>
+                        </TableView>
                      </children>
                   </AnchorPane>
                </content>
@@ -352,7 +375,30 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="385.0" layoutY="142.0" text="Label" />
+                        <TableView fx:id="tableViewComponente" layoutX="4.0" layoutY="113.0" prefHeight="386.0" prefWidth="835.0">
+                          <columns>
+                            <TableColumn fx:id="columnNombre" prefWidth="199.0" text="Componente">
+                                 <columns>
+                                  <TableColumn fx:id="Column_modeloComponente" prefWidth="160.0" text="Modelo" />
+                                    <TableColumn fx:id="ColumnmarcaComponente" prefWidth="160.0" text="Marca" />
+                                 </columns>
+                              </TableColumn>
+                              <TableColumn fx:id="columnSuplidor" maxWidth="335.0" prefWidth="335.0" text="Precio">
+                                 <columns>
+                                    <TableColumn fx:id="ColumnPrecioComComponente" prefWidth="160.0" text="Precio de compra" />
+                                    <TableColumn fx:id="ColumnPrecioVenComponente" minWidth="1.0" prefWidth="160.0" text="Precio de venta" />
+                                 </columns>
+                              </TableColumn>
+                              <TableColumn fx:id="ColumnCantComponente" prefWidth="200.0" text="Cantidad disponible" />
+                          </columns>
+                        </TableView>
+                        <Spinner fx:id="spinnerComponente" layoutX="282.0" layoutY="80.0" prefHeight="25.0" prefWidth="215.0" />
+                        <TextField fx:id="txtFieldBuscarComponente" layoutX="574.0" layoutY="80.0" promptText="modelo,marca" />
+                        <Label fx:id="lblCantComponente" layoutX="741.0" layoutY="82.0" prefHeight="23.0" prefWidth="95.0" style="-fx-border-color: #D4C3C3;" text="Total  :12000">
+                           <font>
+                              <Font name="Arial" size="13.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>
@@ -367,7 +413,7 @@
                   <Image url="@../../pics/Users-Administrator-icon.png" />
                </image>
             </ImageView>
-            <TitledPane fx:id="compraComponentes" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Compra" visible="false">
+            <TitledPane fx:id="compraComponentes" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Compra">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -388,26 +434,26 @@
                                     </Label>
                                  </children>
                               </Pane>
-                              <TextField fx:id="txtFieldPrecio" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="273.0" prefHeight="25.0" prefWidth="149.0" promptText="\$ RD " />
-                              <Label layoutX="51.0" layoutY="90.0" prefHeight="23.0" prefWidth="149.0" text="Modelo" textFill="#2a324b">
+                              <TextField fx:id="txtFieldPrecio" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="253.0" prefHeight="25.0" prefWidth="149.0" promptText="\$ RD " />
+                              <Label layoutX="51.0" layoutY="70.0" prefHeight="23.0" prefWidth="149.0" text="Modelo" textFill="#2a324b">
                                  <font>
                                     <Font name="Consolas Bold" size="12.0" />
                                  </font></Label>
-                              <Label layoutX="51.0" layoutY="138.0" prefHeight="23.0" prefWidth="207.0" text="Marca" textFill="#2a324b">
+                              <Label layoutX="51.0" layoutY="118.0" prefHeight="23.0" prefWidth="207.0" text="Marca" textFill="#2a324b">
                                  <font>
                                     <Font name="Consolas Bold" size="12.0" />
                                  </font></Label>
-                              <Label layoutX="51.0" layoutY="193.0" prefHeight="23.0" prefWidth="207.0" text="Serie" textFill="#2a324b">
+                              <Label layoutX="51.0" layoutY="173.0" prefHeight="23.0" prefWidth="207.0" text="Serie" textFill="#2a324b">
                                  <font>
                                     <Font name="Consolas Bold" size="12.0" />
                                  </font></Label>
-                              <Label layoutX="51.0" layoutY="250.0" prefHeight="23.0" prefWidth="207.0" text="Precio" textFill="#2a324b">
+                              <Label layoutX="51.0" layoutY="230.0" prefHeight="23.0" prefWidth="207.0" text="Precio" textFill="#2a324b">
                                  <font>
                                     <Font name="Consolas Bold" size="12.0" />
                                  </font></Label>
-                              <ComboBox fx:id="comboboxModelo" layoutX="81.0" layoutY="113.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione  " visibleRowCount="5" />
-                              <ComboBox fx:id="comboBoxMarca" layoutX="81.0" layoutY="161.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
-                              <Label fx:id="lblTituloCompra" alignment="CENTER" layoutX="-2.0" layoutY="37.0" prefHeight="34.0" prefWidth="830.0" style="-fx-background-color: #2a324b;" text="Ingresar Microprocesador" textFill="#e1e5ee">
+                              <ComboBox fx:id="comboboxModelo" layoutX="81.0" layoutY="93.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione  " visibleRowCount="5" />
+                              <ComboBox fx:id="comboBoxMarca" layoutX="81.0" layoutY="141.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
+                              <Label fx:id="lblTituloCompra" alignment="CENTER" layoutY="20.0" prefHeight="34.0" prefWidth="830.0" style="-fx-background-color: #2a324b;" text="Ingresar Microprocesador" textFill="#e1e5ee">
                                  <font>
                                     <Font name="Georgia" size="29.0" />
                                  </font>
@@ -479,12 +525,12 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </JFXButton>
-                              <ImageView fx:id="addModelo" fitHeight="30.0" fitWidth="45.0" layoutX="327.0" layoutY="111.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="addModelo" fitHeight="30.0" fitWidth="45.0" layoutX="327.0" layoutY="91.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../pics/add-icon.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="addMarca" fitHeight="30.0" fitWidth="45.0" layoutX="327.0" layoutY="159.0" onMouseClicked="#addMarcaClick" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="addMarca" fitHeight="30.0" fitWidth="45.0" layoutX="327.0" layoutY="139.0" onMouseClicked="#addMarcaClick" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../pics/add-icon.png" />
                                  </image>
@@ -496,13 +542,24 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </JFXButton>
-                              <TextField fx:id="txtFieldSerie" alignment="CENTER_RIGHT" layoutX="87.0" layoutY="222.0" prefHeight="25.0" prefWidth="231.0" />
+                              <TextField fx:id="txtFieldSerie" alignment="CENTER_RIGHT" layoutX="87.0" layoutY="202.0" prefHeight="25.0" prefWidth="231.0" />
                               <Label layoutX="437.0" layoutY="354.0" prefHeight="23.0" prefWidth="207.0" text="Cantidad " textFill="#2a324b">
                                  <font>
                                     <Font name="Consolas Bold" size="12.0" />
                                  </font>
                               </Label>
                               <TextField fx:id="txtFieldCantidad" alignment="CENTER_RIGHT" layoutX="473.0" layoutY="383.0" prefHeight="25.0" prefWidth="231.0" />
+                              <Label layoutX="52.0" layoutY="278.0" prefHeight="23.0" prefWidth="207.0" text="Imagen" textFill="#2a324b">
+                                 <font>
+                                    <Font name="Consolas Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <JFXButton buttonType="RAISED" layoutX="81.0" layoutY="301.0" onAction="#selectImagen" prefHeight="25.0" prefWidth="238.0" style="-fx-border-color: #2a324b;" text="Seleccionar">
+                                 <font>
+                                    <Font name="Consolas" size="14.0" />
+                                 </font>
+                              </JFXButton>
+                              <Label fx:id="lblPath" layoutX="327.0" layoutY="301.0" prefHeight="29.0" prefWidth="294.0" />
                            </children>
                         </Pane>
                      </children>
@@ -537,6 +594,15 @@
                   </AnchorPane>
                </content>
             </TitledPane>
+            <Pane layoutX="1122.0" layoutY="116.0" prefHeight="548.0" prefWidth="238.0" style="-fx-background-color: #e1e5ee; -fx-border-color: black; -fx-border-radius: 5px;" />
+            <JFXTextArea focusColor="#5740a8" labelFloat="true" layoutX="1133.0" layoutY="189.0" prefHeight="464.0" prefWidth="207.0" promptText="Blog para notas inmediatas " scrollLeft="2.0" scrollTop="2.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5px;" unFocusColor="#e40a0a">
+               <font>
+                  <Font name="Arial" size="25.0" />
+               </font>
+               <padding>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </padding>
+            </JFXTextArea>
          </children>
          <padding>
             <Insets top="20.0" />

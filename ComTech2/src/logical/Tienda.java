@@ -1,31 +1,52 @@
 package logical;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import javafx.scene.control.Dialogs.DialogResponse;
-
-public class Tienda {
+public class Tienda implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -396970319363090851L;
 	//
 	private String municipio;
 	private String direccion;
 	private ArrayList<Kit> kits;
-	private ArrayList<Componente> componentes;
+	private ArrayList<miniComponente> componentes;
 	private ArrayList<Suplidor> suplidores;
 	private ArrayList<Vendedor> vendedores;
 	private ArrayList<Factura> facturas;
 	private ArrayList<Compra> compras;
+	private ArrayList<Cliente> clientes;
+	private static int cantRam;
+	private static int cantDisco;
+	private static int cantTarjeta;
+	private static int cantMicro;
 
 	public Tienda(String direccion, String municipio) {
 		super();
 		this.municipio = municipio;
 		this.setDireccion(direccion);
 		this.kits = new ArrayList<Kit>();
-		this.componentes = new ArrayList<Componente>();
+		this.componentes = new ArrayList<miniComponente>();
 		this.suplidores = new ArrayList<Suplidor>();
 		this.vendedores = new ArrayList<Vendedor>();
 		this.facturas = new ArrayList<Factura>();
 		this.compras = new ArrayList<Compra>();
+		this.clientes = new ArrayList<Cliente>();
 
+	}
+
+	public Suplidor getSupliByNombre(String nombre) {
+
+		for (Suplidor supli : suplidores) {
+
+			if (supli.getNombre().equalsIgnoreCase(nombre))
+				return supli;
+
+		}
+
+		return null;
 	}
 
 	public String getMunicipio() {
@@ -47,15 +68,102 @@ public class Tienda {
 		return false;
 	}
 
-	// agregar un componenente o varios componentes;
-	public boolean insertarTodosComponentes(ArrayList<Componente> comps) {
-		this.componentes = comps;
+	public void loadCantidadComponente() {
+
+		cantRam = cantDisco = cantMicro = cantTarjeta = 0;
+		for (miniComponente compo : componentes) {
+
+			if (compo.getComp() instanceof Ram)
+				cantRam += compo.getCant();
+			else if (compo.getComp() instanceof DiscoDuro)
+				cantDisco += compo.getCant();
+			else if (compo.getComp() instanceof TarjetaMadre)
+				cantTarjeta += compo.getCant();
+			else if (compo.getComp() instanceof Microprocesador)
+				cantMicro += compo.getCant();
+
+		}
+
+	}
+
+	public boolean insertarUnComponente(Componente componente, int cant) {
+		miniComponente mini = new miniComponente(componente, cant);
+		miniComponente miniConfirmar = null;
+		for (miniComponente compo : componentes) {
+
+			boolean bool = isThesame(compo.getComp(), componente);
+			if (bool) {
+				miniConfirmar = compo;
+				break;
+			}
+
+		}
+		if (miniConfirmar != null) {
+			int cantidad = miniConfirmar.getCant() + cant;
+			miniConfirmar.setCant(cantidad);
+			miniConfirmar.getComp().cantDispo = cantidad;
+			return true;
+		}
+		mini.getComp().cantDispo = cant;
+		this.componentes.add(mini);
 		return true;
 	}
 
-	public boolean insertarUnComponente(Componente comp) {
-		this.componentes.add(comp);
-		return true;
+	private boolean isThesame(Componente comp, Componente comp2) {
+		String modelo = comp.getModelo();
+		String marca = comp.marca;
+		float precio = comp.getPrecio();
+		String nombre = comp.getNombre();
+		if (comp2.getModelo().equalsIgnoreCase(modelo) && comp2.getMarca().equalsIgnoreCase(marca)
+				&& comp2.getPrecio() == precio && comp2.getNombre().equalsIgnoreCase(nombre)) {
+
+			if (comp instanceof DiscoDuro && comp2 instanceof DiscoDuro) {
+				int alma = ((DiscoDuro) comp).getAlmacenamiento();
+				String tipoCon = ((DiscoDuro) comp).getTipoConec();
+				
+				int alma2 = ((DiscoDuro) comp2).getAlmacenamiento();
+				String tipoCon2 = ((DiscoDuro) comp2).getTipoConec();
+				
+				if(alma == alma2 && tipoCon.equalsIgnoreCase(tipoCon))
+					return true;
+				
+
+			} else if (comp instanceof Ram && comp2 instanceof Ram) {
+				
+				String cantMemoria1 = ((Ram) comp).getCantMemoria();
+				String tipoRam     = ((Ram) comp).getTipoRam();
+				
+				String cantMemoria2 = ((Ram) comp2).getCantMemoria();
+				String tipoRam2    = ((Ram) comp2).getTipoRam();
+				
+				if(cantMemoria1.equalsIgnoreCase(cantMemoria2) && tipoRam.equalsIgnoreCase(tipoRam2))
+					return true;
+				
+				
+				
+				
+
+			} else if (comp instanceof TarjetaMadre && comp2 instanceof TarjetaMadre) {
+				String conexioens = ((TarjetaMadre) comp).getConexiones();
+				String tipoDeram = ((TarjetaMadre) comp).getTipoDeRam();
+				String conexioens2 = ((TarjetaMadre) comp2).getConexiones();
+				String tipoDeram2 = ((TarjetaMadre) comp2).getTipoDeRam();
+				
+				if(conexioens.equalsIgnoreCase(conexioens2) && tipoDeram.equalsIgnoreCase(tipoDeram2))
+					return true;
+
+				
+			} else if (comp instanceof Microprocesador && comp2 instanceof Microprocesador) {
+				String velocidad = ((Microprocesador) comp).getVelocidad();
+				String velocidad2 = ((Microprocesador) comp2).getVelocidad();
+				if(velocidad.equalsIgnoreCase(velocidad2))
+					return true;
+
+			}
+
+		}
+
+		return false;
 	}
 
 	// agregar suplidor o varios suplidores
@@ -98,27 +206,7 @@ public class Tienda {
 	}
 
 	public void insertarUnaCompra(Compra compra) {
-		int cant = 0;
-
-		if (compra.getMiComp() instanceof TarjetaMadre)
-			cant = cantTarjetaMadre();
-		else if (compra.getMiComp() instanceof Ram)
-			cant = cantRam();
-		else if (compra.getMiComp() instanceof DiscoDuro)
-			cant = cantDiscoDuro();
-		else
-			cant = cantMicroprocesador();
-//
-//		if (cant <= compra.getMiComp().cant) {
-//			{
-////				DialogResponse response = Dialogs.showConfirmDialog(stage, "Do you want to continue?", "Confirm Dialog",
-////						"title");
-//			}
-//		} else {
-//			return false;
-//		}
-		
-//		return false;
+		compras.add(compra);
 
 	}
 
@@ -132,7 +220,7 @@ public class Tienda {
 		return kits;
 	}
 
-	public ArrayList<Componente> getComponentes() {
+	public ArrayList<miniComponente> getComponentes() {
 		return componentes;
 	}
 
@@ -148,6 +236,26 @@ public class Tienda {
 		return direccion;
 	}
 
+	public static int getCantDisco() {
+		return cantDisco;
+	}
+
+	public ArrayList<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void insertarCliente(Cliente cliente) {
+		this.clientes.add(cliente);
+	}
+
+	public static int getCantTarjeta() {
+		return cantTarjeta;
+	}
+
+	public static int getCantMicro() {
+		return cantMicro;
+	}
+
 	public ArrayList<Factura> getFacturas() {
 		return facturas;
 	}
@@ -156,59 +264,12 @@ public class Tienda {
 		return compras;
 	}
 
-	// cant de cada componente que tengo
-
-	// cant Tarjeta madre
-	public int cantTarjetaMadre() {
-		int cant = 0;
-
-		for (Componente comp : componentes) {
-			if (comp instanceof TarjetaMadre) {
-				cant++;
-			}
-		}
-		return cant;
-
+	public static int getCantRam() {
+		return cantRam;
 	}
 
-	// cant Ram
-	public int cantRam() {
-		int cant = 0;
-
-		for (Componente comp : componentes) {
-			if (comp instanceof Ram) {
-				cant++;
-			}
-		}
-		return cant;
-
-	}
-
-	// cant microprocesador
-	public int cantMicroprocesador() {
-		int cant = 0;
-
-		for (Componente comp : componentes) {
-			if (comp instanceof Microprocesador) {
-				cant++;
-			}
-
-		}
-		return cant;
-
-	}
-
-	public int cantDiscoDuro() {
-		int cant = 0;
-
-		for (Componente comp : componentes) {
-			if (comp instanceof DiscoDuro) {
-				cant++;
-			}
-
-		}
-		return cant;
-
+	public static void setCantRam(int cantRam) {
+		Tienda.cantRam = cantRam;
 	}
 
 }

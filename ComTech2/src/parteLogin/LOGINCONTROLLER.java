@@ -46,6 +46,7 @@ import logical.Admin;
 import logical.Controladora;
 import logical.Person;
 import logical.Tienda;
+import logical.Vendedor;
 import tienda.crearTiendaController;
 
 public class LOGINCONTROLLER implements Initializable {
@@ -78,13 +79,18 @@ public class LOGINCONTROLLER implements Initializable {
 		if (person != null) {
 			Controladora.setActualUser(person);
 			String informacion = String.format("Bienvenido  %s %s", person.getNombre(), person.getApellido());
-			com.cambiarWindow(txt_contrasena.getScene(), "/admin/PrincipalAdmin.fxml");
+			if (person instanceof Admin) {
+
+				com.cambiarWindow(txt_contrasena.getScene(), "/admin/PrincipalAdmin.fxml");
+
+			} else if (person instanceof Vendedor) {
+				com.cambiarWindow(txt_contrasena.getScene(),"/Vendedor/Vendedor.fxml");
+
+			}
 			ComTechTools.Setnotification("Exito", informacion, 2, "mooo.png");
-			
 
 		} else {
 
-			
 			new Bounce(txt_contrasena).setCycleDuration(10).setCycleCount(1).setDelay(Duration.valueOf("100ms")).play();
 			new Bounce(txt_usuario).setCycleDuration(10).setCycleCount(1).setDelay(Duration.valueOf("100ms")).play();
 

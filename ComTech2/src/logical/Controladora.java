@@ -1,9 +1,11 @@
 package logical;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Controladora {
+public class Controladora implements Serializable {
 
+	private static final long serialVersionUID = 1020663804612037827L;
 	private static ArrayList<Admin> administradores;
 	private static Person person = null;
 	private Tienda tienda;
@@ -17,11 +19,12 @@ public class Controladora {
 		super();
 		Controladora.administradores = new ArrayList<Admin>();
 		Tienda tienda = new Tienda("Villa Olga", "Santiago");
-		this.setTienda(tienda);
-
+		this.tienda = tienda;
+		
 		Admin LevensonLaguerre = new Admin("Levenson", "Laguerre", "admin", "loteria,calle 3", "admin", "01/01/1997");
 		Admin Evelina = new Admin("Evelina", "Villa", "admin", "loteria,calle 3", "eve", "01/01/1997");
 		Admin Jhoan = new Admin("Jhoan", "Collado", "admin", "loteria,calle 3", "1234", "01/01/1997");
+		
 		administradores.add(Jhoan);
 		administradores.add(Evelina);
 		administradores.add(LevensonLaguerre);
@@ -70,6 +73,12 @@ public class Controladora {
 				return adm;
 			}
 		}
+		for (Vendedor vendedor : tienda.getVendedores()) {
+			if (vendedor.getID().equals(usuario) && vendedor.getContrasena().equals(contrasena)) {
+				Controladora.person = vendedor;
+				return vendedor;
+			}
+		}
 		return null;
 	}
 
@@ -83,7 +92,7 @@ public class Controladora {
 		Controladora.administradores.add(admin);
 		return true;
 	}
-
+	
 	// ahi van todos los gettes
 	public ArrayList<Admin> getAdministradores() {
 		return administradores;

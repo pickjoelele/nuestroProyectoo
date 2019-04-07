@@ -1,6 +1,8 @@
 package logical;
 
-public class Suplidor {
+import java.io.Serializable;
+
+public class Suplidor implements Serializable{
 
 	private String nombre;
 	private String apellido;
