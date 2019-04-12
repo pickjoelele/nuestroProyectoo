@@ -3,79 +3,73 @@ package logical;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-class unKit implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8413888595378447291L;
-	private Componente comp;
-	private int cantComponente;
-	private float desCuento;
-
-	public unKit(Componente comp, int cantComponente, float desCuento) {
-		super();
-		this.comp = comp;
-		this.cantComponente = cantComponente;
-		this.desCuento = desCuento;
-	}
-
-	public Componente getComp() {
-		return comp;
-	}
-
-	public void setComp(Componente comp) {
-		this.comp = comp;
-	}
-
-	public int getCantComponente() {
-		return cantComponente;
-	}
-
-	public void setCantComponente(int cantComponente) {
-		this.cantComponente = cantComponente;
-	}
-
-	public float getDesCuento() {
-		return desCuento;
-	}
-
-	public void setDesCuento(float desCuento) {
-		this.desCuento = desCuento;
-	}
-
-}
-
 public class Kit implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3545026044559657274L;
-	private ArrayList<unKit> componentes;
+	private ArrayList<UnKit> componentes;
 	private float precioFinal;
-
+	private float precioSinDescuento;
+	private String nombre;
+	public static int cantKit;
+	private int id;
 	public Kit() {
-		componentes = new ArrayList<unKit>();
+		this.nombre="Kit";
+		componentes = new ArrayList<UnKit>();
+		cantKit++;
+		this.setId(cantKit);
+	}
+	public String getNombre() {
+		return nombre;
 	}
 
-	public ArrayList<unKit> getComponentes() {
+	public ArrayList<UnKit> getComponentes() {
 		return componentes;
 	}
 
 	public float getPrecioFinal() {
-		precioFinal =0;
-		for(unKit unk : componentes) {
-			precioFinal+=unk.getComp().getPrecioVenta()*unk.getCantComponente()*((100-unk.getDesCuento())/100);
+		precioFinal = 0;
+		precioSinDescuento =0;
+		for (UnKit unk : componentes) {
+			precioFinal += unk.getPrecioCondesCuento();
+			precioSinDescuento+=unk.getCantComponente()*unk.getComp().getPrecioVenta();
 		}
 		return precioFinal;
 	}
 
 	// agregar
-	public void insertarUnComp(unKit unkit) {
+	public void insertarUnComp(UnKit unkit) {
 		componentes.add(unkit);
 	}
 
-	public void insertarTodosComps(ArrayList<unKit> unkits) {
+	public void insertarTodosComps(ArrayList<UnKit> unkits) {
 		this.componentes = unkits;
+	}
+
+	public String getDetalles() {
+
+		String str = "";
+		for (UnKit kit : componentes) {
+			str += String.format("%d %s \n", kit.getCantComponente(), kit.getComp().getDetalles());
+
+		}
+
+		return str;
+	}
+
+	public float getPrecioSinDescuento() {
+		return precioSinDescuento;
+	}
+
+	public void setPrecioSinDescuento(float precioSinDescuento) {
+		this.precioSinDescuento = precioSinDescuento;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

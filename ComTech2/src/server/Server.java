@@ -1,62 +1,64 @@
 package server;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import logical.Controladora;
 
 public class Server {
-	private static DatagramSocket sckt;
+	private static ServerSocket sckt;
 	private static boolean running;
+	private static Controladora control;
+
+	public static void setControladora(Controladora controladora) {
+		control = controladora;
+	}
+
+	public static Controladora getControladora() {
+		return control;
+	}
 
 	public static void Start(int puerto) {
 		puerto = puerto;
 		try {
-			sckt = new DatagramSocket(puerto);
+			sckt = new ServerSocket(puerto);
 			running = true;
-			System.out.println("Server is running on port " + sckt.getPort());
+			listen();
+			System.out.println("Server is running on port " + sckt.getLocalPort());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	public static void close() throws IOException {
+		sckt.close();
+		
+	}
 
-	private static void listen() {
-		Thread listenThread = new Thread("Server Comtech") {
+	public static void listen() throws IOException {
 
-			public void run() {
-				try {
-					while (running) {
-						byte[] data = new byte[1024];
-						DatagramPacket packet = new DatagramPacket(data, data.length);
-						sckt.receive(packet);
+		while (running) {
+			Socket socket = sckt.accept();
+			System.out.println("quelqu'un s'est connecte");
+			ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+			ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
 
-						String message = new String(data);
-						message = message.substring(0, message.indexOf("\\e"));
-						broadcast(message);
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+			output.writeObject(control);
 
+			try {
+				control = ((Controladora) input.readObject());
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		};
-		listenThread.start();
-	}
 
-	private static void broadcast(String message) {
-
-	}
-
-	private static void send(String message, InetAddress address, int puerto) {
-		try {
-			message += "\\e";
-			byte[] data = message.getBytes();
-			DatagramPacket packet = new DatagramPacket(data, data.length, address, puerto);
-			sckt.send(packet);
-			System.out.println("message sent to" + address.getHostName());
-
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+
 	}
 
 }

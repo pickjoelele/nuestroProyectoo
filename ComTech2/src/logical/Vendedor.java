@@ -48,6 +48,9 @@ public class Vendedor extends Person {
 	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
+	public void setcantVentas(int x) {
+		cantVentas+=x;
+	}
 
 	public  int getCantVentas() {
 		return cantVentas;

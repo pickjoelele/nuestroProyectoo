@@ -35,7 +35,7 @@ public class Ram extends Componente {
 	@Override
 	public String getDetalles() {
 		// TODO Auto-generated method stub
-		String str = String.format("%s   %s   %s  \n%s  %s",nombre,modelo,marca,tipoRam,cantMemoria );
+		String str = String.format("%s   %s   %s  %s  %s",nombre,modelo,marca,tipoRam,cantMemoria );
 		return str;	}
 
 }

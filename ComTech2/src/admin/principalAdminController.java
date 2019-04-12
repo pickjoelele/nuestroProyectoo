@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import javax.swing.event.MenuListener;
 
@@ -21,10 +23,18 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
@@ -32,15 +42,20 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import kit.KitController;
 import loadData.loadData;
 import logical.*;
 import suplidor.supliController;
@@ -101,6 +116,10 @@ public class principalAdminController implements Initializable {
 	private TitledPane listar_componente;
 	@FXML
 	private TitledPane compraComponentes;
+	@FXML
+	private TitledPane Kit;
+	@FXML
+	private TitledPane InsertarKit;
 
 	@FXML
 	private Label lbl_Actual_user;
@@ -169,13 +188,14 @@ public class principalAdminController implements Initializable {
 	@FXML
 	private ImageView addSupli;
 	@FXML
+	private ImageView addTipoRamMicro;
+
+	@FXML
 	private TextField txtFieldModel;
 
 	@FXML
 	private TextField txtfieldMarca;
 
-	@FXML
-	private TextField txtFieldSerie;
 	@FXML
 	private TextField txtFieldCantMemoria;
 	@FXML
@@ -187,24 +207,19 @@ public class principalAdminController implements Initializable {
 
 	// Componente
 	@FXML
-	private TableView<Componente> tableViewComponente;
+	private TableView<CompoConDetalles> tableViewComponente;
 
 	@FXML
-	private TableColumn<String, String> columnNombre;
+	private TableColumn<CompoConDetalles, String> columnNombre;
 
 	@FXML
-	private TableColumn<Componente, String> columnSuplidor;
-
+	private TableColumn<CompoConDetalles, String> columnSuplidor;
 	@FXML
-	private TableColumn<Componente, String> Column_modeloComponente;
+	private TableColumn<CompoConDetalles, String> ColumnPrecioComComponente;
 	@FXML
-	private TableColumn<Componente, String> ColumnmarcaComponente;
+	private TableColumn<CompoConDetalles, String> ColumnPrecioVenComponente;
 	@FXML
-	private TableColumn<Componente, Float> ColumnPrecioComComponente;
-	@FXML
-	private TableColumn<Componente, Float> ColumnPrecioVenComponente;
-	@FXML
-	private TableColumn<Componente, String> ColumnCantComponente;
+	private TableColumn<CompoConDetalles, String> ColumnCantComponente;
 
 	@FXML
 	private Spinner<String> spinnerComponente;
@@ -222,6 +237,8 @@ public class principalAdminController implements Initializable {
 
 	@FXML
 	private TableColumn<Compra, String> tableCompraNombre;
+	@FXML
+	private TextField txtFieldSearchCompra;
 
 	@FXML
 	private TableColumn<Compra, String> tableCompraPais;
@@ -248,20 +265,211 @@ public class principalAdminController implements Initializable {
 	@FXML
 	private TableColumn<Cliente, String> tableClienteDireccion;
 	@FXML
-	private TableColumn<Cliente, String> tableClienteApellido;
-	@FXML
 	private TableColumn<Cliente, String> tableClienteNombre;
+	@FXML
+	private TableColumn<Cliente, String> tableClienteTelefono;
 	@FXML
 	private TableColumn<Cliente, String> tableClienteId;
 	@FXML
-	private Label  lblPath;
-	// gauge
-	private TableView<ImageView> table;
+	private Label lblPath;
+	@FXML
 
+	private TextField txtfieldTodo;
 	private Gauge gaugeDisco;
 	private Gauge gaugeTarjeta;
 	private Gauge gaugeMicro;
 	private Gauge gaugeRam;
+	// table para listar las ventas
+
+	@FXML
+	private TableView<Factura> tableFactura;
+	@FXML
+	private TableColumn<Factura, String> columnVendedor;
+
+	@FXML
+	private TableColumn<Factura, String> columnDetalles;
+	@FXML
+	private TableColumn<Factura, String> columnTotal;
+	@FXML
+	private TableColumn<Factura, String> columnFechaVenta;
+	// table para kits
+	@FXML
+	private TableView<CompoConDetalles> tableComponenteKit;
+	@FXML
+	private TableColumn<CompoConDetalles, String> compKitInfor;
+	@FXML
+	private TableColumn<CompoConDetalles, String> compKitPrecioVenta;
+	@FXML
+	private TableColumn<CompoConDetalles, String> compKitCant;
+	@FXML
+	private TextField txtBuscarVenta;
+
+	// table para listar los kits
+
+	// informacion para listar los unkits
+	@FXML
+	private ScrollPane scrollPaneListarUnkit;
+	@FXML
+	private ScrollPane scrollpaneKit;
+	@FXML
+	private AnchorPane anchorInsertar;
+	@FXML
+	private AnchorPane anchorListarKit;
+	@FXML
+	private Pane paneBarcharStock;
+	@FXML
+	private Pane paneBarcharVentas;
+	@FXML
+	
+
+	private ArrayList<UnKit> unkits = new ArrayList<UnKit>();
+
+	@SuppressWarnings({ "unchecked", "static-access", "rawtypes" })
+	public void llenarBarchat() {
+
+		control.getTienda().loadCantidadComponente();
+		CategoryAxis xAxis = new CategoryAxis();
+		NumberAxis yAxis = new NumberAxis();
+		xAxis.setLabel("Componentes");
+		yAxis.setLabel("Cantidad disponible");
+		BarChart barchart = new BarChart(xAxis, yAxis);
+
+		XYChart.Series dataSeries1 = new XYChart.Series();
+		dataSeries1.setName("2019");
+
+		control.getTienda();
+		dataSeries1.getData().add(new XYChart.Data("Microprocessor", Tienda.getCantMicro()));
+		dataSeries1.getData().add(new XYChart.Data("Ram", control.getTienda().getCantRam()));
+		control.getTienda();
+		dataSeries1.getData().add(new XYChart.Data("Tarjeta Ram", Tienda.getCantTarjeta()));
+		control.getTienda();
+		dataSeries1.getData().add(new XYChart.Data("Disco Duro", Tienda.getCantDisco()));
+
+		barchart.getData().add(dataSeries1);
+		barchart.setPrefSize(300, 400);
+
+		paneBarcharStock.getChildren().add(barchart);
+
+	}
+
+	@SuppressWarnings({ "unchecked", "static-access", "rawtypes" })
+	public void llenarBarchatVentas() {
+
+		control.getTienda().loadCantidadComponente();
+		NumberAxis xAxis = new NumberAxis(1, 7, 1);
+		NumberAxis yAxis = new NumberAxis(0, 1000, 100);
+		xAxis.setLabel("Dias");
+		yAxis.setLabel("Ingresos por Dia");
+		LineChart barchart = new LineChart(xAxis, yAxis);
+
+		XYChart.Series dataSeries1 = new XYChart.Series();
+		dataSeries1.setName("2019");
+		int x = 0, y = 0;
+		String fecha = "";
+		control.getTienda();
+		int precio = 0;
+
+		for (Factura fact : control.getTienda().getFacturas()) {
+			String fech = Utiles.convertDateToString(fact.getFecha());
+
+			if (x == 0)
+				fecha = fech;
+			if (fecha.equalsIgnoreCase(fech)) {
+				precio += fact.getPrecioFinal();
+				x++;
+
+			}
+			if (!fecha.equalsIgnoreCase(fech) || x == control.getTienda().getFacturas().size()) {
+				fecha = fech;
+				y += 1;
+				dataSeries1.getData().add(new XYChart.Data(y, precio));
+
+				precio = 0;
+
+			}
+
+		}
+
+//		 *
+
+		barchart.getData().add(dataSeries1);
+		barchart.setPrefSize(500, 400);
+
+		paneBarcharVentas.getChildren().setAll((barchart));
+
+	}
+
+	public GridPane loadUnkit() {
+		int x = 0;
+		GridPane grid = new GridPane();
+		grid.setPrefWidth(360);
+		anchorInsertar.getChildren().add(grid);
+		grid.setVgap(15);
+		for (UnKit unkit : unkits) {
+
+			VBox vbox = new VBox();
+			BorderPane borderDescription = new BorderPane();
+
+			vbox.setPrefHeight(100);
+			borderDescription.setPrefHeight(100);
+
+			borderDescription.setPrefHeight(100);
+			borderDescription.setStyle("-fx-background-color:white");
+			vbox.setStyle("-fx-background-color:white");
+
+			Label lblDesc = new Label(unkit.getDetalles());
+			lblDesc.setStyle("-fx-font-size: 16px;-fx-font-weight:bold");
+			lblDesc.setPrefWidth(270);
+			borderDescription.setCenter(lblDesc);
+
+			JFXButton btnDelte = new JFXButton();
+			int p = x;
+			btnDelte.setOnMouseClicked(e -> {
+
+				unkits.remove(p);
+				scrollPaneListarUnkit.setContent(loadUnkit());
+
+			});
+			btnDelte.setGraphic(new ImageView(new Image("delete-icon.png")));
+
+			btnDelte.setPrefWidth(50);
+			btnDelte.setPrefHeight(30);
+			btnDelte.setStyle(
+					"-fx-background-color: #1F5050; -fx-background-radius: 6px;-fx-text-fill:white;-fx-font-size:12px");
+			JFXButton btnEdit = new JFXButton();
+			btnEdit.setOnMouseClicked(e -> {
+
+				KitController kit = new KitController();
+
+				control.setUnkit(unkit);
+				try {
+					kit.display();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				scrollPaneListarUnkit.setContent(loadUnkit());
+
+			});
+			btnEdit.setGraphic(new ImageView(new Image("Pencil-icon.png")));
+
+			btnEdit.setStyle("-fx-background-color: #1F5050;-fx-text-fill:white;-fx-font-size:12px");
+			btnEdit.setPrefWidth(50);
+			btnEdit.setPrefHeight(30);
+			vbox.getChildren().addAll(btnDelte, btnEdit);
+			vbox.setPadding(new Insets(2, 0, 2, 2));
+			VBox.setMargin(btnEdit, new Insets(4, 0, 0, 0));
+
+			grid.add(borderDescription, 0, x);
+			grid.add(vbox, 1, x);
+			grid.setPrefHeight(130 * (x + 1));
+			grid.setMaxHeight(130 * (x + 1));
+			x++;
+
+		}
+		return grid;
+
+	}
 
 	@FXML
 	void exit(MouseEvent event) {
@@ -296,101 +504,253 @@ public class principalAdminController implements Initializable {
 	}
 
 	@FXML
-	void ingresarCompra(ActionEvent event) {
-		String modelo = comboboxModelo.getValue().toString();
-		String marca = comboBoxMarca.getValue().toString();
-		float precio = 0;
-		int cantidadCompoente = 0;
-		if (!txtFieldPrecio.getText().isEmpty())
-			precio = Float.parseFloat(txtFieldPrecio.getText());
-		if (!txtFieldCantidad.getText().isEmpty())
-			cantidadCompoente = Integer.parseInt(txtFieldCantidad.getText());
+	void ListarKits(ActionEvent event) {
+		setAllPanelInvisible();
+		scrollpaneKit.setPrefWidth(812);
+		scrollpaneKit.setContent(loadKits());
+		Kit.setVisible(true);
+	}
 
-		String serie = txtFieldSerie.getText();
-		String supliNombre = ComboxBoxSupli.getValue().toString();
-		Suplidor supli = control.getTienda().getSupliByNombre(supliNombre);
+	public GridPane loadKits() {
+
 		int x = 0;
-		Compra compra = null;
-		String imagen = lblPath.getText();
-		// ===========================================
-		if (paneCompraRam.isVisible()) {
-			Ram ram = new Ram(modelo, marca, precio, serie, imagen,txtFieldCantMemoria.getText(),
-					ComBoTipoRam.getValue().toString());
-			ram.setPrecioVenta(10);
-			if ((!modelo.isEmpty()) && (!marca.isEmpty()) && (precio > 0) && (!serie.isEmpty())
-					&& (!txtFieldCantMemoria.getText().isEmpty()) && (!ComBoTipoRam.getValue().toString().isEmpty())) {
-				control.getTienda().insertarUnComponente(ram, cantidadCompoente);
-				ram.setSupliNombre(supliNombre);
-				compra = new Compra(supli.getNombre(), supli.getPais(), ram.getNombre(), ram.getPrecio(),
-						cantidadCompoente);
-				x = 1;
+		GridPane grid = new GridPane();
+		grid.setPrefWidth(800);
+		anchorListarKit.getChildren().add(grid);
+		grid.setVgap(15);
+		for (Kit unkit : control.getTienda().getKits()) {
 
-			}
+			VBox vbox = new VBox();
+			BorderPane borderDescription = new BorderPane();
 
-		} else if (paneCompraDiscoDuro.isVisible()) {
-			int alma = Integer.parseInt(txtDiscoalma.getText());
-			DiscoDuro disco = new DiscoDuro(modelo, marca, precio, serie, imagen,alma,
-					comboDiscoTipoConector.getValue().toString());
-			disco.setPrecioVenta(20);
-			if ((!modelo.isEmpty()) && (!marca.isEmpty()) && (precio > 0) && (!serie.isEmpty()) && (alma > 0)
-					&& (!comboDiscoTipoConector.getValue().toString().isEmpty())) {
-				control.getTienda().insertarUnComponente(disco, cantidadCompoente);
-				disco.setSupliNombre(supliNombre);
-				compra = new Compra(supli.getNombre(), supli.getPais(), disco.getNombre(), disco.getPrecio(),
-						cantidadCompoente);
+			vbox.setPrefHeight(100);
+			borderDescription.setPrefHeight(100);
 
-				x = 1;
-			}
-		} else if (paneCompraTarjetaMadre.isVisible()) {
-			TarjetaMadre tar = new TarjetaMadre(modelo, marca, precio, serie,imagen,
-					comboTarjetaConexiones.getValue().toString(), comboTarjetaTipoRam.getValue().toString());
-			tar.setPrecioVenta(5);
-			if ((!modelo.isEmpty()) && (!marca.isEmpty()) && (precio > 0) && (!serie.isEmpty())
-					&& (!comboTarjetaConexiones.getValue().toString().isEmpty())
-					&& (!comboTarjetaTipoRam.getValue().toString().isEmpty())) {
-				control.getTienda().insertarUnComponente(tar, cantidadCompoente);
-				tar.setSupliNombre(supliNombre);
-				compra = new Compra(supli.getNombre(), supli.getPais(), tar.getNombre(), tar.getPrecio(),
-						cantidadCompoente);
+			borderDescription.setPrefHeight(100);
+			borderDescription.setPrefWidth(700);
+			borderDescription.setStyle("-fx-background-color:white");
+			vbox.setStyle("-fx-background-color:white");
 
-				x = 1;
-			}
-		} else if (paneCompraMicro.isVisible()) {
+			Label lblDesc = new Label(unkit.getDetalles());
+			lblDesc.setStyle("-fx-font-size: 16px;-fx-font-weight:bold");
+			borderDescription.setCenter(lblDesc);
 
-			Microprocesador micro = new Microprocesador(modelo, marca, precio, serie,imagen,
-					textFieldMicroVelocidad.getText());
-			micro.setPrecioVenta(20);
-			if ((!modelo.isEmpty()) && (!marca.isEmpty()) && (precio > 0) && (!serie.isEmpty())
-					&& (!textFieldMicroVelocidad.getText().isEmpty())) {
-				control.getTienda().insertarUnComponente(micro, cantidadCompoente);
-				compra = new Compra(supli.getNombre(), supli.getPais(), micro.getNombre(), micro.getPrecio(),
-						cantidadCompoente);
+			JFXButton btnDelte = new JFXButton("Delete");
+			int p = x;
+			btnDelte.setOnMouseClicked((e) -> {
+				control.getTienda().getKits().remove(p);
+				scrollpaneKit.setContent(loadKits());
+			});
+			btnDelte.setGraphic(new ImageView(new Image("delete-icon.png")));
 
-				micro.setSupliNombre(supliNombre);
+			btnDelte.setPrefWidth(100);
 
-				x = 1;
-			}
+			btnDelte.setStyle(
+					"-fx-background-color: #1F5050; -fx-background-radius: 6px;-fx-text-fill:white;-fx-font-size:14px");
+
+			vbox.getChildren().addAll(btnDelte);
+			vbox.setPadding(new Insets(5, 0, 0, 0));
+			VBox.setMargin(btnDelte, new Insets(15, 0, 0, 0));
+			grid.add(borderDescription, 0, x);
+			grid.add(vbox, 1, x);
+			grid.setPrefHeight(130 * (x + 1));
+			grid.setMaxHeight(130 * (x + 1));
+			x++;
 
 		}
-		if (x == 1) {
-			control.getTienda().insertarUnaCompra(compra);
-			ComTechTools.Setnotification("Exito", "Tu compra fue de Exito", 2, "mooo.png");
-			comboboxModelo.getSelectionModel().clearSelection();
-			txtfieldMarca.clear();
-			txtFieldPrecio.clear();
-			txtFieldSerie.clear();
-			ComboxBoxSupli.getSelectionModel().clearSelection();
-			txtFieldCantMemoria.clear();
-			ComBoTipoRam.getSelectionModel().clearSelection();
-			txtFieldCantMemoria.clear();
-			ComBoTipoRam.getSelectionModel().clearSelection();
-			comboDiscoTipoConector.getSelectionModel().clearSelection();
-			txtDiscoalma.clear();
-			comboTarjetaConexiones.getSelectionModel().clearSelection();
-			comboTarjetaTipoRam.getSelectionModel().clearSelection();
-			textFieldMicroVelocidad.clear();
+		return grid;
 
-			// clean the nodes
+	}
+
+	@FXML
+	void insertarKit(ActionEvent event) {
+		setAllPanelInvisible();
+		loadComponentesKits();
+		InsertarKit.setVisible(true);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	public void loadComponentesKits() {
+		control.getTienda().updateComponente();
+		tableComponenteKit.setOnMouseClicked(event -> {
+			if (event.getClickCount() == 2) {
+				int index = tableComponenteKit.getSelectionModel().getSelectedIndex();
+				UnKit unkit = new UnKit();
+				unkit.setCantTotal(control.getTienda().getComponentes().get(index).getCant());
+				unkit.setComp(control.getTienda().getComponentes().get(index).getComp());
+				KitController kit = new KitController();
+
+				try {
+					control.setUnkit(unkit);
+					kit.display();
+					if (control.getUnkit().getCantComponente() > 1) {
+						unkits.add(unkit);
+
+						scrollPaneListarUnkit.setContent(loadUnkit());
+
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+
+		tableComponenteKit.getColumns().clear();
+		compKitInfor.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getDetalles()));
+		compKitPrecioVenta.setCellValueFactory(
+				item -> new SimpleStringProperty(Float.toString(item.getValue().getPrecioFinal())));
+		compKitCant.setCellValueFactory(
+				item -> new SimpleStringProperty(Integer.toString(item.getValue().getCantDisponibleS())));
+
+		ObservableList<CompoConDetalles> mini = FXCollections
+				.observableArrayList(control.getTienda().getdetallesComponente());
+		tableComponenteKit.getColumns().setAll(compKitInfor, compKitPrecioVenta, compKitCant);
+		tableComponenteKit.setItems(mini);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public boolean isVacio(ArrayList<Node> combos) {
+
+		String colorRed = ("-fx-border-color: red;-fx-border-width:2px");
+		String colorDefault = ("-fx-border-color:lightgray;-fx-border-width:1px");
+		boolean bool = false;
+		for (Node combo : combos) {
+			if (combo instanceof TextField) {
+				if (((TextField) combo).getText().isEmpty()) {
+					((TextField) combo).setStyle(colorRed);
+					bool = true;
+				} else {
+					((TextField) combo).setStyle(colorDefault);
+
+				}
+			}
+			if (combo instanceof ComboBox) {
+				if (((ComboBox) combo).getSelectionModel().getSelectedIndex() == -1) {
+					((ComboBox) combo).setStyle(colorRed);
+					bool = true;
+
+				} else {
+					((ComboBox) combo).setStyle(colorDefault);
+
+				}
+			}
+		}
+		return bool;
+
+	}
+
+	@FXML
+	void ingresarCompra(ActionEvent event) {
+		ArrayList<Node> node = new ArrayList<Node>();
+		node.add(comboBoxMarca);
+		node.add(comboboxModelo);
+		node.add(ComboxBoxSupli);
+		node.add(txtFieldPrecio);
+		node.add(txtFieldCantidad);
+
+		if (!isVacio(node)) {
+
+			String modelo = comboboxModelo.getValue().toString();
+			String marca = comboBoxMarca.getValue().toString();
+			float precio = 0;
+			int cantidadCompoente = 0;
+			precio = Float.parseFloat(txtFieldPrecio.getText());
+			cantidadCompoente = Integer.parseInt(txtFieldCantidad.getText());
+			String supliNombre = ComboxBoxSupli.getValue().toString();
+			Suplidor supli = control.getTienda().getSupliByNombre(supliNombre);
+			int x = 0;
+			Compra compra = null;
+			String imagen = lblPath.getText();
+			String serie = "";
+			if (!imagen.isEmpty()) {
+
+				// ===========================================
+				if (paneCompraRam.isVisible()) {
+					Ram ram = new Ram(modelo, marca, precio, serie, imagen, txtFieldCantMemoria.getText(),
+							ComBoTipoRam.getValue().toString());
+					ram.setPrecioVenta(10);
+					if ((!modelo.isEmpty()) && (!marca.isEmpty()) && (precio > 0)
+							&& (!txtFieldCantMemoria.getText().isEmpty())
+							&& (!ComBoTipoRam.getValue().toString().isEmpty())) {
+						control.getTienda().insertarUnComponente(ram, cantidadCompoente);
+						ram.setSupliNombre(supliNombre);
+						compra = new Compra(supli.getNombre(), supli.getPais(), ram.getNombre(), ram.getPrecio(),
+								cantidadCompoente);
+						x = 1;
+
+					}
+
+				} else if (paneCompraDiscoDuro.isVisible()) {
+					int alma = Integer.parseInt(txtDiscoalma.getText());
+					DiscoDuro disco = new DiscoDuro(modelo, marca, precio, serie, imagen, alma,
+							comboDiscoTipoConector.getValue().toString());
+					disco.setPrecioVenta(20);
+					if ((!modelo.isEmpty()) && (!marca.isEmpty()) && (precio > 0) && (alma > 0)
+							&& (!comboDiscoTipoConector.getValue().toString().isEmpty())) {
+						control.getTienda().insertarUnComponente(disco, cantidadCompoente);
+						disco.setSupliNombre(supliNombre);
+						compra = new Compra(supli.getNombre(), supli.getPais(), disco.getNombre(), disco.getPrecio(),
+								cantidadCompoente);
+
+						x = 1;
+					}
+				} else if (paneCompraTarjetaMadre.isVisible()) {
+					TarjetaMadre tar = new TarjetaMadre(modelo, marca, precio, serie, imagen,
+							comboTarjetaConexiones.getValue().toString(), comboTarjetaTipoRam.getValue().toString());
+					tar.setPrecioVenta(5);
+					if ((!modelo.isEmpty()) && (!marca.isEmpty()) && (precio > 0)
+							&& (!comboTarjetaConexiones.getValue().toString().isEmpty())
+							&& (!comboTarjetaTipoRam.getValue().toString().isEmpty())) {
+						control.getTienda().insertarUnComponente(tar, cantidadCompoente);
+						tar.setSupliNombre(supliNombre);
+						compra = new Compra(supli.getNombre(), supli.getPais(), tar.getNombre(), tar.getPrecio(),
+								cantidadCompoente);
+
+						x = 1;
+					}
+				} else if (paneCompraMicro.isVisible()) {
+
+					Microprocesador micro = new Microprocesador(modelo, marca, precio, serie, imagen,
+							textFieldMicroVelocidad.getText());
+					micro.setPrecioVenta(20);
+					if ((!modelo.isEmpty()) && (!marca.isEmpty()) && (precio > 0)
+							&& (!textFieldMicroVelocidad.getText().isEmpty())) {
+						control.getTienda().insertarUnComponente(micro, cantidadCompoente);
+						compra = new Compra(supli.getNombre(), supli.getPais(), micro.getNombre(), micro.getPrecio(),
+								cantidadCompoente);
+
+						micro.setSupliNombre(supliNombre);
+
+						x = 1;
+					}
+
+				}
+				if (x == 1) {
+					control.getTienda().insertarUnaCompra(compra);
+					ComTechTools.Setnotification("Exito", "Tu compra fue de Exito", 2, "mooo.png");
+					comboboxModelo.getSelectionModel().clearSelection();
+					txtfieldMarca.clear();
+					txtFieldPrecio.clear();
+					txtFieldCantidad.clear();
+					comboBoxMarca.getSelectionModel().clearSelection();
+					ComboxBoxSupli.getSelectionModel().clearSelection();
+					txtFieldCantMemoria.clear();
+					ComBoTipoRam.getSelectionModel().clearSelection();
+					txtFieldCantMemoria.clear();
+					ComBoTipoRam.getSelectionModel().clearSelection();
+					comboDiscoTipoConector.getSelectionModel().clearSelection();
+					txtDiscoalma.clear();
+					comboTarjetaConexiones.getSelectionModel().clearSelection();
+					comboTarjetaTipoRam.getSelectionModel().clearSelection();
+					textFieldMicroVelocidad.clear();
+
+					// clean the nodes
+
+				}
+			} else
+				ComTechTools.Setnotification("Error", "Seleccione un imagen !", 3, "delete.png");
 
 		} else
 			ComTechTools.Setnotification("Error", "Revise por favor", 2, "delete.png");
@@ -404,7 +764,7 @@ public class principalAdminController implements Initializable {
 		txtfieldMarca.setOnKeyPressed((e) -> {
 			if (e.getCode() == KeyCode.ENTER) {
 				if (!txtfieldMarca.getText().isBlank()) {
-					control.getMarcaStr().add(txtfieldMarca.getText());
+					control.setMarcaStr(txtfieldMarca.getText());
 					addMarca.setVisible(true);
 					txtfieldMarca.setVisible(false);
 					txtfieldMarca.setText("");
@@ -422,6 +782,48 @@ public class principalAdminController implements Initializable {
 	}
 
 	@FXML
+	void addTipoRam(MouseEvent event) throws IOException {
+		txtfieldTodo = new TextField();
+		txtfieldTodo.setPrefWidth(60);
+		Node node = (Node) event.getSource();
+		int x = (int) node.getLayoutX();
+		int y = (int) node.getLayoutY() + 2;
+		if (paneCompraRam.isVisible())
+			paneCompraRam.getChildren().add(txtfieldTodo);
+		if (paneCompraDiscoDuro.isVisible())
+			paneCompraDiscoDuro.getChildren().add(txtfieldTodo);
+		if (paneCompraTarjetaMadre.isVisible())
+			paneCompraTarjetaMadre.getChildren().add(txtfieldTodo);
+		txtfieldTodo.setLayoutX(x);
+		txtfieldTodo.setLayoutY(y);
+		node.setVisible(false);
+		txtfieldTodo.setVisible(true);
+
+		txtfieldTodo.setOnKeyPressed((e) -> {
+			if (e.getCode() == KeyCode.ENTER) {
+				if (!txtfieldTodo.getText().isBlank()) {
+
+					if (node.getId().equalsIgnoreCase("addTipoConector")) {
+						control.setTipoConector(txtfieldTodo.getText());
+					} else if (node.getId().equalsIgnoreCase("addConexiones")) {
+						control.setConexiones(txtfieldTodo.getText());
+					} else if (node.getId().equalsIgnoreCase("addTipoRam")
+							|| node.getId().equalsIgnoreCase("addTipoRamMicro")) {
+						control.setTipoRam(txtfieldTodo.getText());
+
+					}
+
+					node.setVisible(true);
+					txtfieldTodo.setVisible(false);
+					txtfieldTodo.setText("");
+					llenarComboBox();
+				}
+			}
+		});
+
+	}
+
+	@FXML
 	void addModelClick(MouseEvent event) {
 		addModelo.setVisible(false);
 		txtFieldModel.setVisible(true);
@@ -429,7 +831,7 @@ public class principalAdminController implements Initializable {
 		txtFieldModel.setOnKeyPressed((e) -> {
 			if (e.getCode() == KeyCode.ENTER) {
 				if (!txtFieldModel.getText().isBlank()) {
-					control.getModeloStr().add(txtFieldModel.getText());
+					control.setModeloStr(txtFieldModel.getText());
 					addModelo.setVisible(true);
 					txtFieldModel.setVisible(false);
 					txtFieldModel.setText("");
@@ -461,7 +863,6 @@ public class principalAdminController implements Initializable {
 		String direccion = txt_Usuario_id_vendedor.getText();
 		String contrasena = txt_contrasena_vendedor.getText();
 		String fechaNacimiento = datapicker_fechaVendedor.getValue().toString();
-
 		if (Utiles.isAlpha(nombre) && Utiles.isAlpha(apellido) && Utiles.isUsername(id) && Utiles.isAddress(direccion)
 				&& Utiles.isPassword(contrasena)) {
 
@@ -484,10 +885,26 @@ public class principalAdminController implements Initializable {
 	}
 
 	@FXML
+	void insertarUnkit(ActionEvent event) {
+
+		Kit kit = new Kit();
+		for (UnKit unkit : unkits) {
+			kit.insertarUnComp(unkit);
+		}
+		if (unkits.size() > 0) {
+			control.getTienda().getKits().add(kit);
+
+			unkits.clear();
+			scrollPaneListarUnkit.setContent(loadUnkit());
+		}
+
+	}
+
+	@FXML
 	void menu_hacerCompra(ActionEvent event) {
 		setAllPanelInvisible();
-		 lblPath.setText("");
-		 lblPath.setVisible(false);
+		lblPath.setText("");
+		lblPath.setVisible(false);
 		getComponentsStatistics();
 		hacer_compra.setVisible(true);
 	}
@@ -553,14 +970,34 @@ public class principalAdminController implements Initializable {
 		listar_compra.setVisible(true);
 	}
 
+	@SuppressWarnings("unchecked")
+	public void loadVentas() {
+		tableFactura.getColumns().clear();
+//
+		columnVendedor.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getVendedor()));
+		columnDetalles.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getDetalles()));
+		columnFechaVenta.setCellValueFactory(item -> new SimpleStringProperty(Utiles.convertDateToString(item.getValue().getFecha())));
+
+
+		columnTotal.setCellValueFactory(
+				item -> new SimpleStringProperty(Float.toString(item.getValue().getPrecioFinal())));
+
+		tableFactura.getColumns().addAll(columnVendedor, columnDetalles, columnTotal,columnFechaVenta);
+		tableFactura.setItems(FXCollections.observableArrayList(control.getTienda().getFacturas()));
+	}
+
 	@FXML
 	void menu_listarVentas(ActionEvent event) {
+		loadVentas();
+		setAllPanelInvisible();
 		listar_venta.setVisible(true);
 	}
 
 	@FXML
 	void return_Pagina_principal(MouseEvent event) {
 		setAllPanelInvisible();
+		llenarBarchat();
+		llenarBarchatVentas();
 		dashboard.setVisible(true);
 	}
 
@@ -605,6 +1042,7 @@ public class principalAdminController implements Initializable {
 
 	@FXML
 	void color_mouse_entered(MouseEvent event) {
+
 		Node node = (Node) event.getSource();
 		node.setStyle("-fx-background-color : #EFDBDC");
 	}
@@ -622,12 +1060,14 @@ public class principalAdminController implements Initializable {
 		paneCompraMicro.setVisible(false);
 		paneCompraRam.setVisible(false);
 		paneCompraTarjetaMadre.setVisible(false);
+		Kit.setVisible(false);
+		InsertarKit.setVisible(false);
 	}
 
 	public ObservableList<String> getSpinnerString() {
 
 		ObservableList<String> lists = FXCollections.observableArrayList(//
-				"Componentes", "Ram", "Microprocesador", "Disco Duro", "Tarjeta Ram" //
+				"Componentes", "Ram", "Microprocesador", "Disco Duro", "Tarjeta Madre" //
 		);
 
 		return lists;
@@ -638,8 +1078,10 @@ public class principalAdminController implements Initializable {
 		value.setValue("Componentes");
 
 		spinnerComponente.setValueFactory(value);
+
 		spinnerComponente.setOnMouseClicked((e) -> {
 			strSpinComp = spinnerComponente.getValue();
+			loadComponenteTabla();
 		});
 	}
 
@@ -651,17 +1093,15 @@ public class principalAdminController implements Initializable {
 	@SuppressWarnings("unchecked")
 	public void loadClienteTabla() {
 		tableCliente.getColumns().clear();
-
+//
 		tableClienteId.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getID()));
 		tableClienteNombre.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getNombre()));
-		tableClienteApellido.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getApellido()));
-
+		tableClienteTelefono.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getTelefono()));
 		tableClienteDireccion.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getDireccion()));
 		tableClienteCompras
 				.setCellValueFactory(item -> new SimpleStringProperty(Float.toString(item.getValue().getPrecio())));
-//
 
-		tableCliente.getColumns().addAll(tableClienteId, tableClienteNombre, tableClienteApellido,
+		tableCliente.getColumns().addAll(tableClienteId, tableClienteNombre, tableClienteTelefono,
 				tableClienteDireccion, tableClienteCompras);
 		tableCliente.setItems(getClientes());
 
@@ -669,18 +1109,27 @@ public class principalAdminController implements Initializable {
 
 	@SuppressWarnings("unchecked")
 	public void loadComponenteTabla() {
-		initializeSpinnerListarComponentes();
 		tableViewComponente.getColumns().clear();
-		Column_modeloComponente.setCellValueFactory(new PropertyValueFactory<>("modelo"));
-		ColumnmarcaComponente.setCellValueFactory(new PropertyValueFactory<>("marca"));
-		ColumnPrecioComComponente.setCellValueFactory(new PropertyValueFactory<>("precio"));
-		ColumnPrecioVenComponente.setCellValueFactory(new PropertyValueFactory<>("precioVenta"));
-		ColumnCantComponente
-				.setCellValueFactory(item -> new SimpleStringProperty(Integer.toString(item.getValue().cantDispo)));
 
-		tableViewComponente.getColumns().addAll(Column_modeloComponente, ColumnmarcaComponente,
-				ColumnPrecioComComponente, ColumnPrecioVenComponente, ColumnCantComponente);
-		tableViewComponente.setItems(getComponentes());
+		columnNombre.setCellValueFactory(item -> new SimpleStringProperty(item.getValue().getDetalles()));
+		ColumnPrecioComComponente
+				.setCellValueFactory(item -> new SimpleStringProperty(Float.toString(item.getValue().getPrecio())));
+
+		ColumnPrecioVenComponente.setCellValueFactory(
+				item -> new SimpleStringProperty(Float.toString(item.getValue().getPrecioFinal())));
+
+		ColumnCantComponente.setCellValueFactory(
+				item -> new SimpleStringProperty(Integer.toString(item.getValue().getCantDisponibleS())));
+
+		tableViewComponente.getColumns().addAll(columnNombre, ColumnPrecioComComponente, ColumnPrecioVenComponente,
+				ColumnCantComponente);
+
+		if (strSpinComp.isEmpty() || strSpinComp.equalsIgnoreCase("Componentes"))
+			tableViewComponente.setItems(getComponentes(control.getTienda().getdetallesComponente()));
+		else {
+			tableViewComponente.setItems(getComponentes(control.getTienda().getMiniComponentesByName(strSpinComp,
+					control.getTienda().getdetallesComponente())));
+		}
 
 	}
 
@@ -707,30 +1156,37 @@ public class principalAdminController implements Initializable {
 
 	public ObservableList<Compra> getCompras() {
 
-		ObservableList<Compra> compras = FXCollections.observableArrayList(control.getTienda().getCompras());
-
+		ObservableList<Compra> compras = FXCollections.observableArrayList(control.getTienda()
+				.getMiniComprasByName(txtFieldSearchCompra.getText(), control.getTienda().getCompras()));
 		return compras;
 
 	}
 
-	public ObservableList<Componente> getComponentes() {
-		ObservableList<Componente> componentes = FXCollections.observableArrayList();
+	public ObservableList<CompoConDetalles> getComponentes(ArrayList<CompoConDetalles> mini) {
+		control.getTienda().updateComponente();
 		String busqueda = txtFieldBuscarComponente.getText();
+		ObservableList<CompoConDetalles> componentes = FXCollections
+				.observableArrayList(control.getTienda().getMiniComponentesByName(busqueda, mini));
+
+//		System.out.println(component.get(0).getCant());
 //		Componente comp = ()
-		for (miniComponente mini : control.getTienda().getComponentes()) {
-
-			Componente comp = mini.getComp();
-			if (!busqueda.isBlank()) {
-				if (comp.getMarca().contentEquals(busqueda) || comp.getModelo().contentEquals(busqueda)) {
-					componentes.add(comp);
-
-				}
-			} else {
-				componentes.add(comp);
-
-			}
-
-		}
+//		componentes = 
+//		System.out.println();
+//		for (miniComponente mini : control.getTienda().getComponentes()) {
+//			
+////			if(control.getTienda().isThesame(mini, componentes)) {
+////			Componente comp = mini.getComp();
+////			if (!busqueda.isBlank()) {
+////				if (comp.getMarca().contentEquals(busqueda) || comp.getModelo().contentEquals(busqueda)) {
+////					componentes.add(comp);
+////
+////				}
+////			} else {
+////				componentes.add(comp);
+////
+////			}
+////			}
+//		}
 
 		return componentes;
 	}
@@ -759,22 +1215,34 @@ public class principalAdminController implements Initializable {
 	void selectImagen(ActionEvent event) {
 		FileChooser fc = new FileChooser();
 		File file = fc.showOpenDialog(null);
-		if(file != null ) {
-			 lblPath.setVisible(true);
+		if (file != null) {
+			lblPath.setVisible(true);
 
-			 lblPath.setText(file.getName());
+			lblPath.setText(file.getName());
 		}
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
+		llenarBarchat();
+		llenarBarchatVentas();
 		lbl_Actual_user.setText(Controladora.getActualUser().getApellido());
 		setAllPanelInvisible();
 		dashboard.setVisible(true);
-		getComponentsStatistics();
+//		getComponentsStatistics();
+
+		strSpinComp = "";
+		initializeSpinnerListarComponentes();
 		llenarComboBox();
-		
+
+		txtFieldSearchCompra.setText("");
+		txtFieldSearchCompra.setOnKeyPressed((e) -> {
+			if (e.getCode() == KeyCode.BACK_SPACE || e.getCode() == KeyCode.ENTER) {
+				loadCompraTabla();
+			}
+
+		});
 		txtFieldBuscarComponente.setOnKeyPressed((e) -> {
 			if (e.getCode() == KeyCode.BACK_SPACE || e.getCode() == KeyCode.ENTER) {
 				loadComponenteTabla();

@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 
 import logical.Controladora;
 import logical.Tienda;
+import server.Server;
 
 public class loadData {
 	private static Controladora control;
@@ -15,8 +16,12 @@ public class loadData {
 
 	public static void load() {
 		control = new Controladora();
-		direccion = new File("C:\\Users\\lele\\Desktop\\ISC Files program 1/Tienda.dat");
+		direccion = new File("C:\\Users\\lele\\git\\nuestroProyectoo\\ComTech2/Tienda.dat");
 		loadTienda();
+	}
+	public static void StartServer() {
+		Server.setControladora(control);
+		Server.Start(5000);
 	}
 
 	public static Controladora getControladora() {
@@ -29,7 +34,7 @@ public class loadData {
 			FileOutputStream filetienda = new FileOutputStream(direccion);
 
 			ObjectOutputStream OBJO = new ObjectOutputStream(filetienda);
-			OBJO.writeObject(control.getTienda());
+			OBJO.writeObject(control);
 			System.out.println("fue guardado con exito!");
 			filetienda.close();
 		} catch (IOException e) {
@@ -46,7 +51,7 @@ public class loadData {
 				System.out.println("fue leido con exito!");
 
 				java.io.ObjectInputStream OBJI = new java.io.ObjectInputStream(fileTienda);
-				control.setTienda((Tienda) OBJI.readObject());
+				control = ((Controladora) OBJI.readObject());
 				fileTienda.close();
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();

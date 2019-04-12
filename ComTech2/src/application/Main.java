@@ -20,6 +20,7 @@ public class Main extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("/Splashscreen/SPLASHCREEN.fxml")); 
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setTitle("Principal");
 			primaryStage.setScene(scene);
 			primaryStage.initStyle(StageStyle.UTILITY);
 		

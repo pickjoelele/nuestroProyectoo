@@ -19,16 +19,20 @@ public class Compra implements Serializable {
 	private String fecha;
 	private int cant;
 
-	public Compra(String supliNombre, String pais, String nombreComponente, float precio,
-			 int cant) {
+	public Compra(String supliNombre, String pais, String nombreComponente, float precio, int cant) {
 		super();
 		this.supliNombre = supliNombre;
 		this.pais = pais;
 		this.nombreComponente = nombreComponente;
 		this.precio = precio;
-		this.precioTotal = precio*cant;
+		this.precioTotal = precio * cant;
 		this.fecha = Utiles.convertDateToString(new Date());
 		this.cant = cant;
+	}
+
+	public String getDetalles() {
+		String str = String.format("%s %s %s %s ", supliNombre, pais, nombreComponente,fecha);
+		return str;
 	}
 
 	public String getSupliNombre() {

@@ -1,21 +1,7 @@
-/Splashscreen/
-/Util/
-/admin/
-/application/
-/crearCuenta/
-/database/
-/loadData/
-/logical/
-/parteLogin/
-/suplidor/
-/tienda/
-/resetContrasena/
 /kit/
-/server/
+/admin/
+/logical/
 /Vendedor/
-/memoria-ram-pc-sentey-8gb-ddr3-1600mhz-gamer-envio-gratis-D_NQ_NP_910432-MLA28034693085_082018-F.jpg
-/memoriaRam.jpg
-/disco_duro_wd_3_tbytes_618x463.jpg
-/microprocesador.jpg
-/shop-cart-icon.png
-/shop-cart-icon (1).png
+/loadData/
+/server/
+/application/

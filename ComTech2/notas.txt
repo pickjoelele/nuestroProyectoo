@@ -8,8 +8,7 @@ https://developer.mozilla.org/fr/docs/Web/CSS/Couleurs_CSS/S%C3%A9lecteur_de_cou
 pou couleur picker
 =========
 sonje retire cantComp le client fin achte
-fel yon gen manager nn chak tienda ,li k voye 
-vendeur ale  
+  
 //al crear un vendedor ,hay que decir cual tienda
 en caso ke no hay,no puede
 ===================================================

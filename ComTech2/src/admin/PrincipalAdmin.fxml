@@ -5,15 +5,13 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -34,17 +32,17 @@
 
 <StackPane fx:id="stackpane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.principalAdminController">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1366.0" stylesheets="@application.css" StackPane.alignment="CENTER">
+      <AnchorPane fx:id="categoryAxisStock" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1366.0" stylesheets="@application.css" StackPane.alignment="CENTER">
          <children>
             <Pane layoutX="13.0" layoutY="116.0" prefHeight="548.0" prefWidth="238.0" style="-fx-background-color: #e1e5ee; -fx-border-color: black; -fx-border-radius: 5px;" />
             <Pane layoutX="-9.0" layoutY="1.0" prefHeight="51.0" prefWidth="1380.0" style="-fx-background-color: #2a324b;">
                <children>
-                  <Label layoutX="46.0" layoutY="10.0" onMouseClicked="#return_Pagina_principal" text="Tech" textFill="WHITE">
+                  <Label layoutX="79.0" layoutY="6.0" onMouseClicked="#return_Pagina_principal" text="Tech" textFill="WHITE">
                      <font>
                         <Font name="Courier New" size="31.0" />
                      </font>
                   </Label>
-                  <Label layoutX="123.0" layoutY="10.0" onMouseClicked="#return_Pagina_principal" text="Com" textFill="#9ef7b9">
+                  <Label layoutX="156.0" layoutY="6.0" onMouseClicked="#return_Pagina_principal" text="Com" textFill="#9ef7b9">
                      <font>
                         <Font name="Courier New Bold" size="31.0" />
                      </font>
@@ -91,7 +89,7 @@
                </children>
             </Pane>
             <Pane layoutX="-7.0" layoutY="663.0" prefHeight="51.0" prefWidth="1380.0" style="-fx-background-color: black;" />
-            <MenuBar layoutX="256.0" layoutY="54.0" prefHeight="42.0" prefWidth="852.0">
+            <MenuBar layoutX="269.0" layoutY="54.0" prefHeight="42.0" prefWidth="839.0">
               <menus>
                 <Menu mnemonicParsing="false" text="Compra">
                   <items>
@@ -119,26 +117,20 @@
                       <MenuItem mnemonicParsing="false" onAction="#menu_listarComponente" text="Listar Componente" />
                     </items>
                   </Menu>
+                  <Menu mnemonicParsing="false" style="-fx-min-width: 156px;" text="Kit">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#insertarKit" text="Insertar Kits" />
+                        <MenuItem mnemonicParsing="false" onAction="#ListarKits" text="Listar Kits" />
+                    </items>
+                  </Menu>
               </menus>
             </MenuBar>
             <TitledPane fx:id="dashboard" animated="false" contentDisplay="CENTER" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Dashboard" visible="false" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="105.0">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="385.0" layoutY="142.0" text="Label" />
-                        <BarChart layoutX="80.0" layoutY="30.0" prefHeight="414.0" prefWidth="622.0" style="-fx-background-color: white;" title="Ventas">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </BarChart>
-                        <ImageView fitHeight="225.0" fitWidth="383.0" layoutX="301.0" layoutY="142.0" opacity="0.41" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../pics/tima.png" />
-                           </image>
-                        </ImageView>
+                        <Pane fx:id="paneBarcharStock" layoutX="14.0" layoutY="14.0" maxHeight="400.0" maxWidth="300.0" prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #F3BDBD; -fx-border-color: white;" />
+                        <Pane fx:id="paneBarcharVentas" layoutX="327.0" layoutY="14.0" maxHeight="400.0" maxWidth="504.0" prefHeight="400.0" prefWidth="504.0" style="-fx-background-color: #F3BDBD; -fx-border-color: white;" />
                      </children>
                   </AnchorPane>
               </content>
@@ -189,7 +181,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tableCompra" layoutX="6.0" layoutY="8.0" prefHeight="486.0" prefWidth="827.0">
+                        <TableView fx:id="tableCompra" layoutX="6.0" layoutY="90.0" prefHeight="404.0" prefWidth="827.0">
                           <columns>
                             <TableColumn prefWidth="75.0" text="Suplidor">
                                  <columns>
@@ -204,15 +196,24 @@
                               <TableColumn fx:id="tableCompraFecha" prefWidth="100.0" text="Fecha" />
                           </columns>
                         </TableView>
+                        <TextField fx:id="txtFieldSearchCompra" layoutX="681.0" layoutY="51.0" />
                      </children>
                   </AnchorPane>
                </content>
             </TitledPane>
-            <TitledPane fx:id="listar_venta" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Ventas" visible="false" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="105.0">
+            <TitledPane fx:id="listar_venta" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Ventas" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="105.0">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="385.0" layoutY="142.0" text="Label" />
+                        <TableView fx:id="tableFactura" layoutY="66.0" prefHeight="405.0" prefWidth="844.0">
+                          <columns>
+                            <TableColumn fx:id="columnVendedor" prefWidth="153.0" text="Vendedor" />
+                            <TableColumn fx:id="columnDetalles" prefWidth="427.0" text="Detalles" />
+                              <TableColumn fx:id="columnTotal" prefWidth="129.0" text="Total" />
+                              <TableColumn fx:id="columnFechaVenta" prefWidth="129.0" text="Fecha" />
+                          </columns>
+                        </TableView>
+                        <TextField fx:id="txtBuscarVenta" layoutX="125.0" layoutY="8.0" prefHeight="45.0" prefWidth="621.0" promptText="Buscar " />
                      </children>
                   </AnchorPane>
                </content>
@@ -362,9 +363,9 @@
                           <columns>
                             <TableColumn fx:id="tableClienteId" prefWidth="150.0" text="ID" />
                             <TableColumn fx:id="tableClienteNombre" prefWidth="180.0" text="Nombre" />
-                              <TableColumn fx:id="tableClienteApellido" prefWidth="180.0" text="Apellido" />
+                              <TableColumn fx:id="tableClienteTelefono" prefWidth="170.0" text="Telefono" />
                               <TableColumn fx:id="tableClienteDireccion" prefWidth="170.0" text="Direccion" />
-                              <TableColumn fx:id="tableClienteCompras" prefWidth="150.0" text="Compras" />
+                              <TableColumn fx:id="tableClienteCompras" prefWidth="160.0" text="Compras" />
                           </columns>
                         </TableView>
                      </children>
@@ -377,19 +378,14 @@
                      <children>
                         <TableView fx:id="tableViewComponente" layoutX="4.0" layoutY="113.0" prefHeight="386.0" prefWidth="835.0">
                           <columns>
-                            <TableColumn fx:id="columnNombre" prefWidth="199.0" text="Componente">
-                                 <columns>
-                                  <TableColumn fx:id="Column_modeloComponente" prefWidth="160.0" text="Modelo" />
-                                    <TableColumn fx:id="ColumnmarcaComponente" prefWidth="160.0" text="Marca" />
-                                 </columns>
-                              </TableColumn>
-                              <TableColumn fx:id="columnSuplidor" maxWidth="335.0" prefWidth="335.0" text="Precio">
+                            <TableColumn fx:id="columnNombre" prefWidth="368.0" text="Componente" />
+                              <TableColumn fx:id="columnSuplidor" maxWidth="384.0" prefWidth="320.0" text="Precio">
                                  <columns>
                                     <TableColumn fx:id="ColumnPrecioComComponente" prefWidth="160.0" text="Precio de compra" />
                                     <TableColumn fx:id="ColumnPrecioVenComponente" minWidth="1.0" prefWidth="160.0" text="Precio de venta" />
                                  </columns>
                               </TableColumn>
-                              <TableColumn fx:id="ColumnCantComponente" prefWidth="200.0" text="Cantidad disponible" />
+                              <TableColumn fx:id="ColumnCantComponente" prefWidth="144.0" text="Cantidad disponible" />
                           </columns>
                         </TableView>
                         <Spinner fx:id="spinnerComponente" layoutX="282.0" layoutY="80.0" prefHeight="25.0" prefWidth="215.0" />
@@ -413,7 +409,7 @@
                   <Image url="@../../pics/Users-Administrator-icon.png" />
                </image>
             </ImageView>
-            <TitledPane fx:id="compraComponentes" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Compra">
+            <TitledPane fx:id="compraComponentes" animated="false" layoutX="260.0" layoutY="105.0" prefHeight="548.0" prefWidth="856.0" text="Compra" visible="false">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -434,26 +430,51 @@
                                     </Label>
                                  </children>
                               </Pane>
-                              <TextField fx:id="txtFieldPrecio" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="253.0" prefHeight="25.0" prefWidth="149.0" promptText="\$ RD " />
-                              <Label layoutX="51.0" layoutY="70.0" prefHeight="23.0" prefWidth="149.0" text="Modelo" textFill="#2a324b">
-                                 <font>
-                                    <Font name="Consolas Bold" size="12.0" />
-                                 </font></Label>
-                              <Label layoutX="51.0" layoutY="118.0" prefHeight="23.0" prefWidth="207.0" text="Marca" textFill="#2a324b">
-                                 <font>
-                                    <Font name="Consolas Bold" size="12.0" />
-                                 </font></Label>
-                              <Label layoutX="51.0" layoutY="173.0" prefHeight="23.0" prefWidth="207.0" text="Serie" textFill="#2a324b">
-                                 <font>
-                                    <Font name="Consolas Bold" size="12.0" />
-                                 </font></Label>
-                              <Label layoutX="51.0" layoutY="230.0" prefHeight="23.0" prefWidth="207.0" text="Precio" textFill="#2a324b">
-                                 <font>
-                                    <Font name="Consolas Bold" size="12.0" />
-                                 </font></Label>
-                              <ComboBox fx:id="comboboxModelo" layoutX="81.0" layoutY="93.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione  " visibleRowCount="5" />
-                              <ComboBox fx:id="comboBoxMarca" layoutX="81.0" layoutY="141.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
-                              <Label fx:id="lblTituloCompra" alignment="CENTER" layoutY="20.0" prefHeight="34.0" prefWidth="830.0" style="-fx-background-color: #2a324b;" text="Ingresar Microprocesador" textFill="#e1e5ee">
+                              <GridPane hgap="5.0" layoutX="26.0" layoutY="109.0" prefHeight="170.0" prefWidth="330.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="85.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="172.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="150.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label prefHeight="23.0" prefWidth="149.0" text="Modelo" textFill="#2a324b" GridPane.valignment="TOP">
+                                       <font>
+                                          <Font name="Consolas Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label prefHeight="23.0" prefWidth="207.0" text="Marca" textFill="#2a324b" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                       <font>
+                                          <Font name="Consolas Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label prefHeight="23.0" prefWidth="207.0" text="Precio" textFill="#2a324b" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                       <font>
+                                          <Font name="Consolas Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox fx:id="comboboxModelo" prefHeight="25.0" prefWidth="195.0" promptText="Seleccione  " visibleRowCount="5" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
+                                    <ImageView fx:id="addModelo" fitHeight="30.0" fitWidth="45.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+                                       <image>
+                                          <Image url="@../../pics/add-icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ComboBox fx:id="comboBoxMarca" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                                    <ImageView fx:id="addMarca" fitHeight="30.0" fitWidth="45.0" onMouseClicked="#addMarcaClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                       <image>
+                                          <Image url="@../../pics/add-icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <TextField fx:id="txtFieldPrecio" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="100.0" promptText="\$ RD " GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                                    <TextField fx:id="txtFieldModel" prefHeight="25.0" prefWidth="88.0" promptText="modelo" visible="false" GridPane.columnIndex="2" GridPane.valignment="BOTTOM" />
+                                    <TextField fx:id="txtfieldMarca" prefHeight="25.0" prefWidth="88.0" promptText="Marca" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                                 </children>
+                              </GridPane>
+                              <Label fx:id="lblTituloCompra" alignment="CENTER" layoutY="4.0" prefHeight="34.0" prefWidth="830.0" style="-fx-background-color: #2a324b;" text="Ingresar Microprocesador" textFill="#e1e5ee">
                                  <font>
                                     <Font name="Georgia" size="29.0" />
                                  </font>
@@ -470,21 +491,21 @@
                                           <Font name="Consolas Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="txtFieldCantMemoria" alignment="CENTER_RIGHT" layoutX="50.0" layoutY="140.0" prefHeight="25.0" prefWidth="231.0" />
-                                    <ImageView fx:id="addModelo2" fitHeight="30.0" fitWidth="45.0" layoutX="287.0" layoutY="67.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
+                                    <TextField fx:id="txtFieldCantMemoria" alignment="CENTER_RIGHT" layoutX="50.0" layoutY="140.0" prefHeight="25.0" prefWidth="122.0" />
+                                    <ImageView fx:id="addTipoRam" fitHeight="30.0" fitWidth="45.0" layoutX="287.0" layoutY="67.0" onMouseClicked="#addTipoRam" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../pics/add-icon.png" />
                                        </image>
                                     </ImageView>
                                  </children>
                               </Pane>
-                              <Pane fx:id="paneCompraDiscoDuro" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;" visible="false">
+                              <Pane fx:id="paneCompraDiscoDuro" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;">
                                  <children>
                                     <Label layoutX="14.0" layoutY="48.0" prefHeight="23.0" prefWidth="149.0" text="Tipo de Conector" />
                                     <ComboBox fx:id="comboDiscoTipoConector" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
                                     <TextField fx:id="txtDiscoalma" alignment="CENTER_RIGHT" layoutX="43.0" layoutY="131.0" prefHeight="25.0" prefWidth="149.0" promptText="\$ RD " />
                                     <Label layoutX="14.0" layoutY="108.0" prefHeight="23.0" prefWidth="207.0" text="Almacenamiento" textFill="#2a324b" />
-                                    <ImageView fx:id="addModelo3" fitHeight="30.0" fitWidth="45.0" layoutX="288.0" layoutY="73.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="addTipoConector" fitHeight="30.0" fitWidth="45.0" layoutX="288.0" layoutY="73.0" onMouseClicked="#addTipoRam" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../pics/add-icon.png" />
                                        </image>
@@ -497,21 +518,21 @@
                                     <ComboBox fx:id="comboTarjetaTipoRam" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
                                     <Label layoutX="14.0" layoutY="107.0" prefHeight="23.0" prefWidth="207.0" text="Conexiones" textFill="#2a324b" />
                                     <ComboBox fx:id="comboTarjetaConexiones" layoutX="44.0" layoutY="130.0" prefHeight="25.0" prefWidth="238.0" promptText="Seleccione" />
-                                    <ImageView fx:id="addModelo1" fitHeight="30.0" fitWidth="45.0" layoutX="289.0" layoutY="69.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="addTipoRamMicro" fitHeight="30.0" fitWidth="45.0" layoutX="289.0" layoutY="69.0" onMouseClicked="#addTipoRam" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../pics/add-icon.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fx:id="addModelo11" fitHeight="30.0" fitWidth="45.0" layoutX="289.0" layoutY="128.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="addConexiones" fitHeight="30.0" fitWidth="45.0" layoutX="289.0" layoutY="128.0" onMouseClicked="#addTipoRam" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../pics/add-icon.png" />
                                        </image>
                                     </ImageView>
                                  </children>
                               </Pane>
-                              <Pane fx:id="paneCompraMicro" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;">
+                              <Pane fx:id="paneCompraMicro" layoutX="438.0" layoutY="109.0" prefHeight="180.0" prefWidth="351.0" style="-fx-border-width: 3px; -fx-border-color: black; -fx-border-radius: 3px;" visible="false">
                                  <children>
-                                    <TextField fx:id="textFieldMicroVelocidad" alignment="CENTER_RIGHT" layoutX="62.0" layoutY="65.0" prefHeight="25.0" prefWidth="238.0" />
+                                    <TextField fx:id="textFieldMicroVelocidad" alignment="CENTER_RIGHT" layoutX="62.0" layoutY="65.0" prefHeight="25.0" prefWidth="127.0" />
                                     <Label layoutX="192.0" layoutY="142.0" prefHeight="30.0" prefWidth="29.0" text="GHZ" textFill="WHITE" />
                                     <Label layoutX="14.0" layoutY="30.0" prefHeight="23.0" prefWidth="149.0" text="Velocidad" textFill="#2a324b">
                                        <font>
@@ -525,41 +546,28 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </JFXButton>
-                              <ImageView fx:id="addModelo" fitHeight="30.0" fitWidth="45.0" layoutX="327.0" layoutY="91.0" onMouseClicked="#addModelClick" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../pics/add-icon.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="addMarca" fitHeight="30.0" fitWidth="45.0" layoutX="327.0" layoutY="139.0" onMouseClicked="#addMarcaClick" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../pics/add-icon.png" />
-                                 </image>
-                              </ImageView>
-                              <TextField fx:id="txtFieldModel" layoutX="327.0" layoutY="113.0" prefHeight="25.0" prefWidth="88.0" promptText="modelo" visible="false" />
-                              <TextField fx:id="txtfieldMarca" layoutX="327.0" layoutY="161.0" prefHeight="25.0" prefWidth="88.0" promptText="Marca" visible="false" />
                               <JFXButton buttonType="RAISED" layoutX="5.0" layoutY="464.0" onAction="#regresarCompra" prefHeight="30.0" prefWidth="93.0" ripplerFill="#9ef7b9" style="-fx-background-color: #EE5757;" text="Regresar" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </JFXButton>
-                              <TextField fx:id="txtFieldSerie" alignment="CENTER_RIGHT" layoutX="87.0" layoutY="202.0" prefHeight="25.0" prefWidth="231.0" />
                               <Label layoutX="437.0" layoutY="354.0" prefHeight="23.0" prefWidth="207.0" text="Cantidad " textFill="#2a324b">
                                  <font>
                                     <Font name="Consolas Bold" size="12.0" />
                                  </font>
                               </Label>
                               <TextField fx:id="txtFieldCantidad" alignment="CENTER_RIGHT" layoutX="473.0" layoutY="383.0" prefHeight="25.0" prefWidth="231.0" />
-                              <Label layoutX="52.0" layoutY="278.0" prefHeight="23.0" prefWidth="207.0" text="Imagen" textFill="#2a324b">
-                                 <font>
-                                    <Font name="Consolas Bold" size="12.0" />
-                                 </font>
-                              </Label>
                               <JFXButton buttonType="RAISED" layoutX="81.0" layoutY="301.0" onAction="#selectImagen" prefHeight="25.0" prefWidth="238.0" style="-fx-border-color: #2a324b;" text="Seleccionar">
                                  <font>
                                     <Font name="Consolas" size="14.0" />
                                  </font>
                               </JFXButton>
-                              <Label fx:id="lblPath" layoutX="327.0" layoutY="301.0" prefHeight="29.0" prefWidth="294.0" />
+                              <Label fx:id="lblPath" layoutX="327.0" layoutY="301.0" prefHeight="29.0" prefWidth="294.0" visible="false" />
+                              <Label layoutX="26.0" layoutY="278.0" prefHeight="23.0" prefWidth="207.0" text="Imagen" textFill="#2a324b">
+                                 <font>
+                                    <Font name="Consolas Bold" size="12.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </Pane>
                      </children>
@@ -574,35 +582,146 @@
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
             </JFXTextArea>
-            <TitledPane fx:id="listar_venta1" animated="false" layoutX="269.0" layoutY="110.0" prefHeight="548.0" prefWidth="856.0" text="Kit" visible="false" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="215.0" AnchorPane.topAnchor="110.0">
+            <TitledPane fx:id="Kit" animated="false" layoutX="272.0" layoutY="112.0" prefHeight="568.0" prefWidth="841.0" text="Kit" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="272.0" AnchorPane.rightAnchor="253.0" AnchorPane.topAnchor="92.0">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="1142.0">
+                  <AnchorPane fx:id="anchorListarKit" minHeight="0.0" minWidth="0.0" prefHeight="508.0" prefWidth="832.0">
                      <children>
-                        <Label layoutX="53.0" layoutY="115.0" prefHeight="32.0" prefWidth="112.0" text="Componente:">
+                        <Line endX="639.0" layoutX="189.0" layoutY="21.0" startX="-167.66665649414062" />
+                        <ComboBox layoutX="20.0" layoutY="38.0" prefHeight="38.0" prefWidth="77.0" />
+                        <TextField layoutX="97.0" layoutY="38.0" prefHeight="38.0" prefWidth="650.0" promptText="Buscar un kit">
                            <font>
-                              <Font name="System Bold" size="15.0" />
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <JFXButton layoutX="746.0" layoutY="38.0" prefHeight="38.0" prefWidth="80.0" style="-fx-background-color: #D5E1C5;" text="Buscar">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <Pane layoutX="20.0" layoutY="467.0" prefHeight="49.0" prefWidth="808.0" style="-fx-background-color: white; -fx-border-color: lightgray;">
+                           <children>
+                              <GridPane alignment="CENTER" layoutY="6.0" prefHeight="32.0" prefWidth="809.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <JFXButton alignment="CENTER" buttonType="RAISED" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #4CEF4C; -fx-background-radius: 10px;" text="Crear Kit" textFill="#725a5a" GridPane.columnIndex="2">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="14.0" />
+                                       </font>
+                                    </JFXButton>
+                                    <JFXButton alignment="CENTER" buttonType="RAISED" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #E9FB21; -fx-background-radius: 10px;" text="Kits mas vendidos" textFill="#725a5a" GridPane.columnIndex="1">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="14.0" />
+                                       </font>
+                                    </JFXButton>
+                                    <JFXButton alignment="CENTER" buttonType="RAISED" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #BF3F3F; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="15.0" />
+                                       </font>
+                                    </JFXButton>
+                                 </children>
+                                 <padding>
+                                    <Insets left="300.0" />
+                                 </padding>
+                              </GridPane>
+                           </children>
+                        </Pane>
+                        <Label alignment="CENTER" layoutX="21.0" layoutY="83.0" prefHeight="23.0" prefWidth="812.0" style="-fx-background-color: #E2E2E2; -fx-border-color: #C4C4C4;" text="Informacion" textFill="#433b3b">
+                           <font>
+                              <Font name="Segoe UI Black" size="12.0" />
                            </font>
                         </Label>
-                        <Label layoutX="39.0" layoutY="30.0" prefHeight="30.0" prefWidth="178.0" text="Ingresar Kit">
-                           <font>
-                              <Font name="Corbel Bold" size="22.0" />
-                           </font>
-                        </Label>
-                        <Line endX="639.0" layoutX="194.0" layoutY="82.0" startX="-167.66665649414062" />
-                        <ComboBox layoutX="44.0" layoutY="151.0" prefWidth="150.0" />
+                        <ScrollPane fx:id="scrollpaneKit" layoutX="20.0" layoutY="114.0" prefHeight="346.0" prefWidth="812.0" />
                      </children>
                   </AnchorPane>
                </content>
             </TitledPane>
-            <Pane layoutX="1122.0" layoutY="116.0" prefHeight="548.0" prefWidth="238.0" style="-fx-background-color: #e1e5ee; -fx-border-color: black; -fx-border-radius: 5px;" />
-            <JFXTextArea focusColor="#5740a8" labelFloat="true" layoutX="1133.0" layoutY="189.0" prefHeight="464.0" prefWidth="207.0" promptText="Blog para notas inmediatas " scrollLeft="2.0" scrollTop="2.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5px;" unFocusColor="#e40a0a">
+            <TitledPane fx:id="InsertarKit" animated="false" layoutX="282.0" layoutY="122.0" prefHeight="540.0" prefWidth="841.0" text="Insertar Un kit" visible="false">
+               <content>
+                  <AnchorPane fx:id="anchorInsertar" minHeight="0.0" minWidth="0.0" prefHeight="508.0" prefWidth="832.0">
+                     <children>
+                        <Line endX="639.0" layoutX="189.0" layoutY="21.0" startX="-167.66665649414062" />
+                        <ComboBox layoutX="20.0" layoutY="38.0" prefHeight="38.0" prefWidth="77.0" />
+                        <TextField layoutX="97.0" layoutY="38.0" prefHeight="38.0" prefWidth="302.0" promptText="Buscar un Componente">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <TableView fx:id="tableComponenteKit" layoutX="21.0" layoutY="78.0" prefHeight="379.0" prefWidth="476.0">
+                           <columns>
+                              <TableColumn fx:id="compKitInfor" prefWidth="287.33331298828125" text="Informacion  Componentes" />
+                              <TableColumn fx:id="compKitPrecioVenta" prefWidth="110.66668701171875" text="Precio Venta" />
+                              <TableColumn fx:id="compKitCant" prefWidth="76.0" text="Cant" />
+                           </columns>
+                        </TableView>
+                        <Pane layoutX="20.0" layoutY="467.0" prefHeight="49.0" prefWidth="808.0" style="-fx-background-color: white; -fx-border-color: lightgray;">
+                           <children>
+                              <GridPane alignment="CENTER" layoutY="6.0" prefHeight="32.0" prefWidth="809.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <JFXButton alignment="CENTER" buttonType="RAISED" onAction="#insertarUnkit" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #4CEF4C; -fx-background-radius: 10px;" text="Insertar un kit" textFill="#725a5a" GridPane.columnIndex="2">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="14.0" />
+                                       </font>
+                                    </JFXButton>
+                                    <JFXButton alignment="CENTER" buttonType="RAISED" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #E9FB21; -fx-background-radius: 10px;" text="Kits mas vendidos" textFill="#725a5a" GridPane.columnIndex="1">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="14.0" />
+                                       </font>
+                                    </JFXButton>
+                                    <JFXButton alignment="CENTER" buttonType="RAISED" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #BF3F3F; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
+                                       <font>
+                                          <Font name="Segoe UI Black" size="15.0" />
+                                       </font>
+                                    </JFXButton>
+                                 </children>
+                                 <padding>
+                                    <Insets left="300.0" />
+                                 </padding>
+                              </GridPane>
+                           </children>
+                        </Pane>
+                        <Label layoutX="511.0" layoutY="78.0" prefHeight="22.0" prefWidth="256.0" style="-fx-background-color: lightgray; -fx-border-color: black; -fx-border-radius: 2px;" text="Informacion del kit">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="767.0" layoutY="78.0" prefHeight="22.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-color: black; -fx-border-radius: 2px;" text="Precio">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane fx:id="scrollPaneListarUnkit" layoutX="511.0" layoutY="103.0" prefHeight="354.0" prefWidth="316.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
+            <Label layoutX="5.0" layoutY="18.0" prefHeight="19.0" prefWidth="56.0" text="Admin" textFill="#0af77d">
                <font>
-                  <Font name="Arial" size="25.0" />
+                  <Font name="System Italic" size="13.0" />
                </font>
-               <padding>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </padding>
-            </JFXTextArea>
+               <effect>
+                  <DropShadow color="#ddd4d4" height="9.14" radius="13.645" spread="0.37" width="47.44" />
+               </effect>
+            </Label>
+            <ImageView fitHeight="191.0" fitWidth="179.0" layoutX="1139.0" layoutY="251.0" opacity="0.84" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../pics/tima.png" />
+               </image>
+            </ImageView>
          </children>
          <padding>
             <Insets top="20.0" />

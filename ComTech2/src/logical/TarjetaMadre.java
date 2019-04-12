@@ -36,7 +36,7 @@ public class TarjetaMadre extends Componente {
 	@Override
 	public String getDetalles() {
 		// TODO Auto-generated method stub
-		String str = String.format("%s   %s   %s \n  %s  %s", nombre, modelo, marca, conexiones,tipoDeRam);
+		String str = String.format("%s   %s   %s   %s  %s", nombre, modelo, marca, conexiones,tipoDeRam);
 		return str;
 	}
 

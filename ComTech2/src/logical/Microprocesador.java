@@ -22,7 +22,7 @@ public class Microprocesador extends Componente {
 	@Override
 	public String getDetalles() {
 		// TODO Auto-generated method stub
-		String str = String.format("%s   %s   %s \n%s GHZ",nombre,modelo,marca,velocidad  );
+		String str = String.format("%s   %s   %s %s GHZ",nombre,modelo,marca,velocidad  );
 		return str;
 	}
 

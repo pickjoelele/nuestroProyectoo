@@ -1,44 +1,73 @@
 package logical;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cliente extends Person {
-	
-	private ArrayList<Factura> facturas;
-	private static int cantClientes;
+public class Cliente implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4233007017061617818L;
+	private ArrayList<SerieDetalles> componentes;
+	public static int cantClientes;
 	private Float precio;
-	public Cliente(String nombre, String apellido, String iD, String direccion) {
-		super(nombre, apellido, iD, direccion);
+	private String telefono;
+	private String direccion;
+	private String nombre;
+	private String ID;
+
+	public Cliente(String nombre, String telefono, String direccion) {
 		// TODO Auto-generated constructor stub
-		this.ID="Cli - "+cantClientes+1;
-		facturas = new ArrayList<Factura>();
+		cantClientes++;
+		this.ID = String.format("%d", cantClientes);
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		componentes = new ArrayList<SerieDetalles>();
+	}
+
+	public String getID() {
+		return ID;
+	}
+	public void setPrecio(float precio) {
+		this.precio = precio;
 	}
 	public Float getPrecio() {
 		precio = 0f;
-		
-		for(Factura fact:facturas)
-			precio+=fact.getPrecioFinal();
-		
-		
+
+		for (SerieDetalles compo : componentes)
+			precio += compo.getPrecioFinal();
+
 		return precio;
 	}
 
-	public ArrayList<Factura> getFacturas() {
-		return facturas;
+	public String getNombre() {
+		return String.format("%s ", nombre);
 	}
 
-	public void insertarFactura(Factura factura) {
-		this.facturas.add(factura);
+	public String getTelefono() {
+		return telefono;
 	}
 
-	public static int getCantClientes() {
-		return cantClientes;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
-	public static void setCantClientes(int cantClientes) {
-		Cliente.cantClientes = cantClientes;
+	public String getDireccion() {
+		return direccion;
 	}
 
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 
+	public ArrayList<SerieDetalles> getComponentes() {
+		return componentes;
+	}
+
+	public void setComponentes(ArrayList<SerieDetalles> series) {
+		this.componentes.addAll(componentes.size(), series);
+	}
 
 }

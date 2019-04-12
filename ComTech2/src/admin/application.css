@@ -3,6 +3,8 @@
   -fx-border-color:  black;
  -fx-border-width: 2 ;
  -fx-border-radius: 2;
+ -fx-padding:0px,5px,0px,0px;
+ 
 }
 
 .menuButton{
@@ -15,13 +17,15 @@
     -fx-font-size: 20 pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
+    -fx-padding: 0px;
 }
 .menu{
-    -fx-min-width: 150px;
+    -fx-min-width: 135px;
     -fx-max-width:150px;
 
 
 }
+
 .pane{
         -fx-background-color:  white; 
 
@@ -43,10 +47,12 @@
 
 .menu-item{
    -fx-background-color:  #3FBFBF;
-   -fx-min-width: 150px;
-   -fx-text-fill: white;
+   -fx-min-width: 135px;
+    -fx-max-width:150px;
+   -fx-text-fill: #E0F02D;
    -fx-border-color: #DDDEE2 transparent #B9C0C8 transparent;
    -fx-border-width:5px;
+  
 }
 
 .menu-item:focused {

@@ -10,6 +10,7 @@ public class DiscoDuro extends Componente{
 		super(modelo, marca, precio, serie, imagen);
 		this.tipoConec = tipoConec;
 		this.Almacenamiento = Almacenamiento;
+		this.nombre="Disco Duro";
 		// TODO Auto-generated constructor stub
 	}
 
@@ -38,7 +39,7 @@ public class DiscoDuro extends Componente{
 	@Override
 	public String getDetalles() {
 		// TODO Auto-generated method stub
-		String str = String.format("%s   %s   %s \n%s   %d ",nombre,modelo,marca,tipoConec,Almacenamiento );
+		String str = String.format("%s   %s   %s  %s   %d ",nombre,modelo,marca,tipoConec,Almacenamiento );
 		return str;	}
 
 }

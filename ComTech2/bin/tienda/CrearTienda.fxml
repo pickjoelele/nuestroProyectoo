@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tienda.crearTiendaController">
+   <children>
+      <TitledPane fx:id="pane_crear_tienda" prefHeight="548.0" prefWidth="700.0" text="Crear Tienda">
+         <content>
+            <Pane fx:id="Pane_Crear_Tienda" prefHeight="0.0" prefWidth="450.0" styleClass="pane" visible="false">
+               <children>
+                  <TableView fx:id="tableView_Tienda" layoutX="360.0" layoutY="113.0" onMouseClicked="#displaySelectedItem" prefHeight="377.0" prefWidth="239.0">
+                     <columns>
+                        <TableColumn fx:id="tableColumn_Tienda_id" prefWidth="69.0" text="ID" />
+                        <TableColumn fx:id="tableColumn_Tienda_municipio" maxWidth="175.0" prefWidth="175.0" text="Municipio" />
+                     </columns>
+                  </TableView>
+                  <Label alignment="CENTER" layoutX="376.0" layoutY="68.0" prefHeight="38.0" prefWidth="207.0" text="Todas las Tiendas" textFill="#58e892">
+                     <font>
+                        <Font name="Constantia Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <JFXButton buttonType="RAISED" defaultButton="true" layoutX="609.0" layoutY="283.0" onAction="#btn_pasar_pagina_Principal" prefHeight="37.0" prefWidth="88.0" ripplerFill="#9ef7b9" style="-fx-background-color: #2a324b;" text="&gt;&gt;" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <Pane fx:id="pane_crear_Sucursale" layoutX="24.0" layoutY="51.0">
+                     <children>
+                        <JFXButton buttonType="RAISED" layoutX="16.0" layoutY="329.0" onAction="#btn_CrearTienda" prefHeight="37.0" prefWidth="285.0" ripplerFill="#9ef7b9" style="-fx-background-color: #68cca5;" text="Crear Una Tienda" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </JFXButton>
+                        <Label prefHeight="23.0" prefWidth="269.0" text="Crear Una sucursale" textFill="#f27c7c">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" disable="true" layoutX="16.0" layoutY="57.0" prefHeight="28.0" prefWidth="128.0" style="-fx-background-color: #3FBFBF; -fx-border-width: 1px; -fx-border-color: #120707; -fx-border-radius: 4px;" text="ID" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="idTienda" disable="true" focusColor="WHITE" layoutX="16.0" layoutY="91.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #E4f7E2; -fx-border-width: 1px; -fx-border-color: #120707; -fx-border-radius: 4px;" text="ID" unFocusColor="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <Label alignment="CENTER" layoutX="16.0" layoutY="165.0" prefHeight="28.0" prefWidth="128.0" style="-fx-background-color: #3FBFBF; -fx-border-width: 1px; -fx-border-color: #120707; -fx-border-radius: 4px;" text="Direccion" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="txtfield_DireccionTienda" focusColor="WHITE" layoutX="16.0" layoutY="199.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #E4f7E2; -fx-border-width: 1px; -fx-border-color: #120707; -fx-border-radius: 4px;" unFocusColor="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <Label alignment="CENTER" layoutX="16.0" layoutY="243.0" prefHeight="28.0" prefWidth="128.0" style="-fx-background-color: #3FBFBF; -fx-border-width: 1px; -fx-border-color: #120707; -fx-border-radius: 4px;" text="Municipio" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="txtfield_tienda_municipio" focusColor="WHITE" layoutX="16.0" layoutY="277.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #E4f7E2; -fx-border-width: 1px; -fx-border-color: #120707; -fx-border-radius: 4px;" unFocusColor="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </Pane>
+                  <Label layoutX="306.0" layoutY="14.0" text="Tech" textFill="#b56b6b">
+                     <font>
+                        <Font name="Courier New" size="31.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="383.0" layoutY="14.0" text="Com" textFill="#9ef7b9">
+                     <font>
+                        <Font name="Courier New Bold" size="31.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </content>
+      </TitledPane>
+   </children>
+</AnchorPane>

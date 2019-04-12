@@ -84,6 +84,7 @@ public class LOGINCONTROLLER implements Initializable {
 				com.cambiarWindow(txt_contrasena.getScene(), "/admin/PrincipalAdmin.fxml");
 
 			} else if (person instanceof Vendedor) {
+				
 				com.cambiarWindow(txt_contrasena.getScene(),"/Vendedor/Vendedor.fxml");
 
 			}

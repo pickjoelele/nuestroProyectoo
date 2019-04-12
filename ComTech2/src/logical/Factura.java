@@ -3,6 +3,7 @@ package logical;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Formatter;
 
 public class Factura implements Serializable {
 
@@ -11,19 +12,28 @@ public class Factura implements Serializable {
 	 */
 	private static final long serialVersionUID = -974358794226177576L;
 	private Date fecha;
-	private ArrayList<Kit> kits;
-	private ArrayList<miniComponente> componentes;
+	private ArrayList<CompoConDetalles> productos;
 	private String cliente;
 	private String vendedor;
 	private float precioFinal;
+	private String id;
+	private String detalles;
+	private int cantItem;
 
-	public Factura(String cliente, String vendedor) {
+	public Factura(String cliente, String vendedor, String id) {
 		super();
+		productos = new ArrayList<CompoConDetalles>();
 		fecha = new Date();
 		this.cliente = cliente;
+		this.id = id;
 		this.vendedor = vendedor;
-		this.componentes = new ArrayList<miniComponente>();
-		this.kits = new ArrayList<Kit>();
+
+	}
+
+	public String getDetalles() {
+
+		return detalles;
+
 	}
 
 	public Date getFecha() {
@@ -34,32 +44,28 @@ public class Factura implements Serializable {
 		this.fecha = fecha;
 	}
 
-	public ArrayList<Kit> getKits() {
-		return kits;
-	}
-
 	public float getPrecioFinal() {
 		precioFinal = 0;
-		for (miniComponente mini : componentes) {
-			precioFinal += mini.getComp().getPrecioVenta() * mini.getCant();
-		}
-		for (Kit kit : kits) {
-			precioFinal += kit.getPrecioFinal();
+		detalles = "";
+		cantItem = 0;
+		int cantMayor ;
+		for (CompoConDetalles compo : productos) {
+			precioFinal += compo.getTotal();
+			Formatter formatter = new Formatter(); 
+			
+	        // comma Specifier 
+	        formatter = new Formatter(); 
+	        formatter.format("CANT : %-10s| %s \n",Integer.toString(compo.getCantDisponibleS()), compo.getDetalles()); 
+	       detalles+=formatter;
+//			detalles += String.format("CANT : %-10d| %s \n",compo.getCantDisponibleS(), compo.getDetalles());
+
 		}
 
 		return precioFinal;
 	}
 
-	public void setKits(ArrayList<Kit> kits) {
-		this.kits = kits;
-	}
-
-	public ArrayList<miniComponente> getComponentes() {
-		return componentes;
-	}
-
-	public void setComponentes(ArrayList<miniComponente> componentes) {
-		this.componentes = componentes;
+	public int getCantItem() {
+		return cantItem;
 	}
 
 	public String getCliente() {
@@ -76,6 +82,22 @@ public class Factura implements Serializable {
 
 	public void setVendedor(String vendedor) {
 		this.vendedor = vendedor;
+	}
+
+	public ArrayList<CompoConDetalles> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(ArrayList<CompoConDetalles> productos) {
+		this.productos = productos;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

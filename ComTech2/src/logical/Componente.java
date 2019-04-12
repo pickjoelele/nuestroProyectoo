@@ -16,7 +16,6 @@ public abstract class Componente implements Serializable{
 	protected String nombre;
 	protected String supliNombre;
 	protected String imagen;
-	public int cantDispo;
 	public Componente(String modelo, String marca,float precio, String serie,String imagen) {
 		super();
 		this.modelo = modelo;
@@ -41,10 +40,7 @@ public abstract class Componente implements Serializable{
 		return marca;
 	}
 
-	public int getCantDispo() {
-		return cantDispo;
-	}
-
+	
 
 
 

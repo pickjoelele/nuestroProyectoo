@@ -14,9 +14,10 @@ public class Controladora implements Serializable {
 	private ArrayList<String> tipoRam;
 	private ArrayList<String> conexiones;
 	private ArrayList<String> TipoConector;
-
+	public  UnKit unkit;
 	public Controladora() {
 		super();
+		this.unkit = new UnKit();
 		Controladora.administradores = new ArrayList<Admin>();
 		Tienda tienda = new Tienda("Villa Olga", "Santiago");
 		this.tienda = tienda;
@@ -64,6 +65,22 @@ public class Controladora implements Serializable {
 	public static void setActualUser(Person person) {
 		Controladora.person = person;
 	}
+	public Person getPersonById(String usuario) {
+		
+		for (Admin adm : administradores) {
+			if (adm.getID().equals(usuario)) {
+				Controladora.person = adm;
+				return adm;
+			}
+		}
+		for (Vendedor vendedor : tienda.getVendedores()) {
+			if (vendedor.getID().equals(usuario)) {
+				Controladora.person = vendedor;
+				return vendedor;
+			}
+		}
+		return null;
+	}
 
 	public Person confirmLogin(String usuario, String contrasena) {
 
@@ -104,6 +121,38 @@ public class Controladora implements Serializable {
 
 	public void setTienda(Tienda tienda) {
 		this.tienda = tienda;
+	}
+
+	public static void setPerson(Person person) {
+		Controladora.person = person;
+	}
+
+	public void setModeloStr(String modelo) {
+		this.modeloStr.add(modelo);
+	}
+
+	public void setMarcaStr(String marca ) {
+		this.marcaStr.add(marca);
+	}
+
+	public UnKit getUnkit() {
+		return unkit;
+	}
+
+	public void setUnkit(UnKit unkit) {
+		this.unkit = unkit;
+	}
+
+	public void setTipoRam(String tipoRam) {
+		this.tipoRam.add(tipoRam);
+	}
+
+	public void setConexiones(String conexiones) {
+		this.conexiones.add( conexiones);
+	}
+
+	public void setTipoConector(String tipoConector) {
+		this.TipoConector.add(tipoConector);
 	}
 
 }
